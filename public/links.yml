@@ -13,19 +13,14 @@
   avatar: https://s1.ax1x.com/2022/11/09/zSVN9O.png 
   desc: 我在等一个人，等一个想保护的人。
   color: "#0078e7"
-- name: hohoyun
-  url: http://www.hohoyun.cn
-  avatar: https://movie-zsh.oss-cn-beijing.aliyuncs.com/blog/hohoH.jpg
-  desc: Vue3 与 SpringBoot 的博客
-  color: "#0078e7"
 - name: 七鳄の学习格
   url: https://blog.gmcj0816.top/
-  avatar: https://blog.gmcj0816.top/img/SeriousWission_TouXiangPic.jpg
+  avatar: https://article.biliimg.com/bfs/article/455077b9b2f3f6b212abfeae5279c9b776a7f7d6.jpg # https://blog.gmcj0816.top/img/SeriousWission_TouXiangPic.png 该头像无法访问
   desc: 如果世界多了精彩，每一位都是创造者，大家都是你的观众
   color: "#0078e7"
 - name: LyShark- 孤风洗剑
   url: https://www.lyshark.com
-  avatar: https://www.lyshark.com/images/baidu_logo.png
+  avatar: https://article.biliimg.com/bfs/article/455077b9b2f3f6b212abfeae5279c9b776a7f7d6.jpg # https://www.lyshark.com/images/baidu_logo.png 该头像无法访问
   desc: 道，可道，非常道；名，可名，非常名。—— 老子《道德经》
   color: "#0078e7"
 - name: 安知鱼

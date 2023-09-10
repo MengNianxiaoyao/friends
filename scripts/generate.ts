@@ -62,8 +62,30 @@ function generateLinksJson() {
   consola.success('Generated links.json successfully!')
 }
 
+/**
+ * 生成 sites.json
+ * @returns
+ */
+function generateSitesJson() {
+  const distFolder = 'dist'
+
+  const sites = yaml.load(fs.readFileSync(config.siteFile, 'utf8')) as Friend[]
+
+  sites.forEach((link) => {
+    // hide email
+    delete link.email
+  })
+
+  if (!fs.existsSync(distFolder))
+    fs.mkdirSync(distFolder, { recursive: true })
+
+  fs.writeFileSync(`${distFolder}/sites.json`, JSON.stringify(sites))
+  consola.success('Generated sites.json successfully!')
+}
+
 try {
   generateLinksJson()
+  generateSitesJson()
 }
 catch (e) {
   console.error(e)

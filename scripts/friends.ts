@@ -58,6 +58,13 @@ program.command('add').action(async () => {
   fs.appendFileSync(config.dataFile, item)
 })
 
+program.command('add').action(async () => {
+  const answers = await inquirer.prompt(questions)
+  const item = yaml.dump([answers])
+  consola.info(item)
+  fs.appendFileSync(config.siteFile, item)
+})
+
 export async function run() {
   program.parse(process.argv)
 }

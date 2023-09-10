@@ -104,7 +104,6 @@ function generateAwayJson() {
   consola.success('Generated away.json successfully!')
 }
 
-
 try {
   generateLinksJson()
   generateSitesJson()

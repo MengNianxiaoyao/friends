@@ -48,7 +48,7 @@ export interface Friend {
 function generateLinksJson() {
   const distFolder = 'dist'
 
-  const links = yaml.load(fs.readFileSync(config.dataFile[0], 'utf8')) as Friend[]
+  const links = yaml.load(fs.readFileSync(config.dataFile.links, 'utf8')) as Friend[]
 
   links.forEach((link) => {
     // hide email
@@ -69,7 +69,7 @@ function generateLinksJson() {
 function generateSitesJson() {
   const distFolder = 'dist'
 
-  const sites = yaml.load(fs.readFileSync(config.dataFile[1], 'utf8')) as Friend[]
+  const sites = yaml.load(fs.readFileSync(config.dataFile.sites, 'utf8')) as Friend[]
 
   sites.forEach((link) => {
     // hide email
@@ -90,7 +90,7 @@ function generateSitesJson() {
 function generateAwayJson() {
   const distFolder = 'dist'
 
-  const away = yaml.load(fs.readFileSync(config.dataFile[2], 'utf8')) as Friend[]
+  const away = yaml.load(fs.readFileSync(config.dataFile.away, 'utf8')) as Friend[]
 
   away.forEach((link) => {
     // hide email

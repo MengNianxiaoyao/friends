@@ -1,3 +1,7 @@
 export default {
-  dataFile: ['./public/links.yml', './public/sites.yml', './public/away.yml'],
+  dataFile: {
+    links: './public/links.yml',
+    sites: './public/sites.yml',
+    away: './public/away.yml'
+  },
 }

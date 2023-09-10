@@ -55,14 +55,9 @@ program.command('add').action(async () => {
   const answers = await inquirer.prompt(questions)
   const item = yaml.dump([answers])
   consola.info(item)
-  fs.appendFileSync(config.dataFile[0], item)
-})
-
-program.command('add').action(async () => {
-  const answers = await inquirer.prompt(questions)
-  const item = yaml.dump([answers])
-  consola.info(item)
-  fs.appendFileSync(config.dataFile[1], item)
+  fs.appendFileSync(config.dataFile.links, item)
+  fs.appendFileSync(config.dataFile.sites, item)
+  fs.appendFileSync(config.dataFile.away, item)
 })
 
 export async function run() {

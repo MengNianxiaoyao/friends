@@ -48,7 +48,7 @@ export interface Friend {
 function generateLinksJson() {
   const distFolder = 'dist'
 
-  const links = yaml.load(fs.readFileSync(config.dataFile, 'utf8')) as Friend[]
+  const links = yaml.load(fs.readFileSync(config.dataFile[0], 'utf8')) as Friend[]
 
   links.forEach((link) => {
     // hide email
@@ -69,7 +69,7 @@ function generateLinksJson() {
 function generateSitesJson() {
   const distFolder = 'dist'
 
-  const sites = yaml.load(fs.readFileSync(config.siteFile, 'utf8')) as Friend[]
+  const sites = yaml.load(fs.readFileSync(config.dataFile[1], 'utf8')) as Friend[]
 
   sites.forEach((link) => {
     // hide email
@@ -83,9 +83,32 @@ function generateSitesJson() {
   consola.success('Generated sites.json successfully!')
 }
 
+/**
+ * 生成 away.json
+ * @returns
+ */
+function generateAwayJson() {
+  const distFolder = 'dist'
+
+  const away = yaml.load(fs.readFileSync(config.dataFile[2], 'utf8')) as Friend[]
+
+  away.forEach((link) => {
+    // hide email
+    delete link.email
+  })
+
+  if (!fs.existsSync(distFolder))
+    fs.mkdirSync(distFolder, { recursive: true })
+
+  fs.writeFileSync(`${distFolder}/away.json`, JSON.stringify(away))
+  consola.success('Generated away.json successfully!')
+}
+
+
 try {
   generateLinksJson()
   generateSitesJson()
+  generateAwayJson()
 }
 catch (e) {
   console.error(e)

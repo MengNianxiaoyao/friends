@@ -32,7 +32,7 @@
   url: https://blog.mnxy.eu.org
   avatar: https://cdn.staticaly.com/gh/MengNianxiaoyao/blogimages@main/siteicon/icon.svg
   desc: 无梦之境
-  color: "#0078e7"
+  color: '#0078e7' # 这里使用单引号是因为需要进行代码检查
 ```
 
 - `blog`: 您的站点名称

@@ -7,6 +7,7 @@ import inquirer from 'inquirer'
 import consola from 'consola'
 import pkg from '../package.json'
 import config from './config'
+import process from "process"
 
 program.version(pkg.version)
 

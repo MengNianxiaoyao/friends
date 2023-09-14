@@ -116,5 +116,5 @@ try {
   generateAwayJson()
 }
 catch (e) {
-  console.error(e)
+  consola.error(e)
 }

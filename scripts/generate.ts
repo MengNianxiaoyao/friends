@@ -73,9 +73,9 @@ function generateSitesJson() {
 
   const sites = yaml.load(fs.readFileSync(config.dataFile.sites, 'utf8')) as Friend[]
 
-  sites.forEach((link) => {
+  sites.forEach((sites) => {
     // hide email
-    delete link.email
+    delete sites.email
   })
 
   if (!fs.existsSync(distFolder))
@@ -95,9 +95,9 @@ function generateAwayJson() {
 
   const away = yaml.load(fs.readFileSync(config.dataFile.away, 'utf8')) as Friend[]
 
-  away.forEach((link) => {
+  away.forEach((away) => {
     // hide email
-    delete link.email
+    delete away.email
   })
 
   if (!fs.existsSync(distFolder))

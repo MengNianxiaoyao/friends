@@ -43,7 +43,7 @@
     "@types/chalk-pipe": "^2.0.1",
     "@types/inquirer": "^9.0.3",
     "@types/js-yaml": "^4.0.5",
-    "@types/node": "^18.11.18",
+    "@types/node": "^20.6.0",
     "consola": "^3.0.2",
     "eslint": "^8.38.0",
     "tsx": "^3.12.2",

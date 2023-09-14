@@ -61,5 +61,6 @@ program.command('add').action(async () => {
 })
 
 export async function run() {
+  const process = require("process")
   program.parse(process.argv)
 }

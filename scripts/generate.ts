@@ -42,8 +42,8 @@ export interface Friend {
 }
 
 /**
- * 
- * @returns
+ *
+ * @returns []
  * @description 生成 links.json
  * 
  */
@@ -65,8 +65,8 @@ function generateLinksJson() {
 }
 
 /**
- * 
- * @returns
+ *
+ * @returns []
  * @description 生成 sites.json
  * 
  */
@@ -88,8 +88,8 @@ function generateSitesJson() {
 }
 
 /**
- * 
- * @returns
+ *
+ * @returns []
  * @description 生成 away.json
  * 
  */

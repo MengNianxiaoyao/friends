@@ -19,8 +19,8 @@ devDependencies:
     specifier: ^0.38.4
     version: 0.38.4(eslint@8.38.0)(typescript@4.9.5)
   '@types/chalk-pipe':
-    specifier: ^2.0.1
-    version: 2.0.1
+    specifier: ^2.0.2
+    version: 2.0.2
   '@types/inquirer':
     specifier: ^9.0.3
     version: 9.0.3
@@ -459,8 +459,8 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@types/chalk-pipe@2.0.1:
-    resolution: {integrity: sha512-0umI75TtFh/dr3sHrMPO1LHoUTkax1e8CeF1rCHXKmKpYc1R46Ypzsis/EI2db/+K/67DhCJ2hbhOsw02xkm0A==}
+  /@types/chalk-pipe@2.0.2:
+    resolution: {integrity: sha512-2psIF1dzOfzpokBfPrz4KEkDqyCqYnklGJboFUDI2USq18M7xGBYzEEriBl4wEK9lYvpRcivRNAlt9z61P1/sQ==}
     dependencies:
       chalk: 2.4.2
     dev: true

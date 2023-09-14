@@ -7,6 +7,7 @@ import inquirer from 'inquirer'
 import consola from 'consola'
 import pkg from '../package.json'
 import config from './config'
+import { process } from 'n/prefer-global/process'
 
 program.version(pkg.version)
 
@@ -50,8 +51,6 @@ const questions = [
     },
   },
 ]
-
-const process = require("process")
 
 program.command('add').action(async () => {
   const answers = await inquirer.prompt(questions)

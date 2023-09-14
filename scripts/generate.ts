@@ -38,12 +38,14 @@ export interface Friend {
   /**
    * 代表色
    */
-  color: string
+  color?: string
 }
 
 /**
- * 生成 links.json
+ * 
  * @returns
+ * @description 生成 links.json
+ * 
  */
 function generateLinksJson() {
   const distFolder = 'dist'
@@ -63,8 +65,10 @@ function generateLinksJson() {
 }
 
 /**
- * 生成 sites.json
+ * 
  * @returns
+ * @description 生成 sites.json
+ * 
  */
 function generateSitesJson() {
   const distFolder = 'dist'
@@ -84,8 +88,10 @@ function generateSitesJson() {
 }
 
 /**
- * 生成 away.json
+ * 
  * @returns
+ * @description 生成 away.json
+ * 
  */
 function generateAwayJson() {
   const distFolder = 'dist'

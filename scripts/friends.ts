@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs'
+import process from 'node:process'
 import { program } from 'commander'
 import yaml from 'js-yaml'
 import chalkPipe from 'chalk-pipe'
@@ -7,7 +8,6 @@ import inquirer from 'inquirer'
 import consola from 'consola'
 import pkg from '../package.json'
 import config from './config'
-import process from "process"
 
 program.version(pkg.version)
 

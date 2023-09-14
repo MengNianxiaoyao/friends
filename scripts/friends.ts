@@ -61,5 +61,5 @@ program.command('add').action(async () => {
 })
 
 export async function run() {
-  program.parse(require("process").argv)
+  program.parse(process.argv)
 }

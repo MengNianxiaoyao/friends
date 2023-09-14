@@ -51,6 +51,8 @@ const questions = [
   },
 ]
 
+const process = require("process")
+
 program.command('add').action(async () => {
   const answers = await inquirer.prompt(questions)
   const item = yaml.dump([answers])

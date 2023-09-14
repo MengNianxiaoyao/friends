@@ -35,7 +35,7 @@
   "dependencies": {
     "chalk-pipe": "^6.0.0",
     "commander": "^10.0.1",
-    "inquirer": "^9.1.4",
+    "inquirer": "^9.2.11",
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {

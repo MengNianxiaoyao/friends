@@ -30,7 +30,7 @@
 ```yml
 - name: 梦念逍遥のBLOG
   url: https://blog.mnxy.eu.org
-  avatar: https://fastly.jsdelivr.net/gh/MengNianxiaoyao/blogimages@main/siteicon/icon.svg
+  avatar: https://fastly.jsdelivr.net/gh/MengNianxiaoyao/blogimages@main/siteicon/icon.svg # https://cdn.staticaly.com/gh/MengNianxiaoyao/blogimages@main/siteicon/icon.svg
   desc: 无梦之境
   color: '#0078e7' # 这里使用单引号是因为需要进行代码检查
 ```

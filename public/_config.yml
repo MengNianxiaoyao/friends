@@ -1,2 +1,2 @@
 theme: jekyll-theme-cayman
-favicon: ./favicon.svg
+head_img: ./favicon.svg

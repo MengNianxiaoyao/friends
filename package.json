@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "packageManager": "pnpm@8.1.0",
   "description": "MengNianxiaoyao's friends",
-  "favicon": "https://blog.mnxy.eu.org/favicon.svg",
   "author": {
     "name": "MengNianxiaoyao",
     "email": "2589141604@qq.com",
-    "url": "https://blog.mnxy.eu.org",
-    "avatar": "https://blog.mnxy.eu.org/favicon.svg"
+    "url": "https://blog.mnxy.eu.org"
   },
   "license": "MIT",
   "homepage": "https://blog.mnxy.eu.org/links/",

@@ -1,4 +1,6 @@
-<link rel="icon" href="https://blog.mnxy.eu.org/favicon.svg">
+<head>
+    <link rel="icon" href="https://blog.mnxy.eu.org/favicon.svg">
+</head>
 
 # [梦念逍遥の友链](https://friends.mnxy.eu.org)
 

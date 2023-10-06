@@ -1,3 +1,5 @@
+<link rel="icon" href="https://blog.mnxy.eu.org/favicon.svg">
+
 # [梦念逍遥の友链](https://friends.mnxy.eu.org)
 
 [![links.json](https://img.shields.io/badge/links.json-yellow)](https://friends.mnxy.eu.org/links.json)

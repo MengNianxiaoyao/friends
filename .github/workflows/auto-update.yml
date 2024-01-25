@@ -1,0 +1,52 @@
+name: Update Packages
+
+on:
+  workflow_dispatch:
+  schedule:
+    # UTC 21:00 -> CST (China) 5:00
+    - cron: '0 21 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: pnpm
+
+      - name: Update packages
+        run: pnpm up --latest
+
+      - name: Commit changes
+        id: commit
+        uses: EndBug/add-and-commit@main
+        with:
+          author_name: github-actions
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
+          message: 'Update packages'
+          add: '.'
+  
+      - name: Install
+        if: steps.commit.outputs.committed == 'true'
+        run: pnpm install
+
+      - name: Build
+        if: steps.commit.outputs.committed == 'true'
+        run: pnpm run build
+
+      - name: Deploy
+        if: steps.commit.outputs.committed == 'true'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          publish_dir: ./dist
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          force_orphan: true
+          enable_jekyll: true

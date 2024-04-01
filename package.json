@@ -34,19 +34,19 @@
   },
   "dependencies": {
     "chalk-pipe": "^6.0.0",
-    "commander": "^11.1.0",
-    "inquirer": "^9.2.12",
+    "commander": "^12.0.0",
+    "inquirer": "^9.2.17",
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.6.3",
+    "@antfu/eslint-config": "^2.11.6",
     "@types/chalk-pipe": "^2.0.4",
     "@types/inquirer": "^9.0.7",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20.11.7",
+    "@types/node": "^20.12.2",
     "consola": "^3.2.3",
-    "eslint": "^8.56.0",
-    "tsx": "^4.7.0",
-    "typescript": "^5.3.3"
+    "eslint": "^8.57.0",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.3"
   }
 }

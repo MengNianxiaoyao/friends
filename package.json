@@ -39,7 +39,7 @@
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.11.6",
+    "@antfu/eslint-config": "^0.38.4",
     "@types/chalk-pipe": "^2.0.4",
     "@types/inquirer": "^9.0.7",
     "@types/js-yaml": "^4.0.9",

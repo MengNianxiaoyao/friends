@@ -24,7 +24,7 @@ jobs:
           node-version: 16.x
           cache: pnpm
 
-      - name: Update packages
+      - name: Upgrade deps
         run: pnpm up --latest
 
       - name: Commit changes
@@ -33,7 +33,7 @@ jobs:
         with:
           author_name: github-actions
           author_email: 41898282+github-actions[bot]@users.noreply.github.com
-          message: 'Update packages'
+          message: 'chore: upgrade deps'
           add: '.'
 
   build:

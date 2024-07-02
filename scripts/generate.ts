@@ -59,7 +59,7 @@ function generateLinksJson() {
   if (!fs.existsSync(distFolder))
     fs.mkdirSync(distFolder, { recursive: true })
 
-  fs.writeFileSync(`${distFolder}/links.json`, JSON.stringify(links))
+  fs.writeFileSync(`${distFolder}/links.json`, JSON.stringify(links, null, 2))
   consola.success('Generated links.json successfully!')
 }
 
@@ -81,7 +81,7 @@ function generateSitesJson() {
   if (!fs.existsSync(distFolder))
     fs.mkdirSync(distFolder, { recursive: true })
 
-  fs.writeFileSync(`${distFolder}/sites.json`, JSON.stringify(sites))
+  fs.writeFileSync(`${distFolder}/sites.json`, JSON.stringify(sites, null, 2))
   consola.success('Generated sites.json successfully!')
 }
 
@@ -103,7 +103,7 @@ function generateAwayJson() {
   if (!fs.existsSync(distFolder))
     fs.mkdirSync(distFolder, { recursive: true })
 
-  fs.writeFileSync(`${distFolder}/away.json`, JSON.stringify(away))
+  fs.writeFileSync(`${distFolder}/away.json`, JSON.stringify(away, null, 2))
   consola.success('Generated away.json successfully!')
 }
 

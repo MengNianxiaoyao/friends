@@ -1,9 +1,9 @@
 {
   "name": "friends",
+  "type": "module",
   "version": "1.0.0",
   "packageManager": "pnpm@8.14.3",
   "description": "MengNianxiaoyao's friends",
-  "type": "module",
   "author": {
     "name": "MengNianxiaoyao",
     "email": "email@mnxy.eu.org",

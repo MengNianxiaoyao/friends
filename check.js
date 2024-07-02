@@ -144,9 +144,7 @@ const main = async () => {
     // 将死链接保存到 away.json
     await saveDeadLinks(deadLinks, aliveLinksFromDead);
 
-    if (deadLinks.length > 0) {
-      await sendNotification(deadLinks);
-    } else {
+    if (deadLinks.length <= 0) {
       console.log(chalk.greenBright("[INFO] All links are alive."));
     }
   } catch (error) {

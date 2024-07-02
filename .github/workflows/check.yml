@@ -1,0 +1,46 @@
+name: check links
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 21 * * 4'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: pnpm/action-setup@v4.0.0
+        with:
+            run_install: true
+      - uses: actions/setup-node@v4.0.2
+        with:
+          node-version: 16.x
+          cache: pnpm
+
+      - name: Check links
+        run: pnpm run check
+      
+      - name: Commit changes
+        id: commit
+        uses: EndBug/add-and-commit@main
+        with:
+          author_name: github-actions[bot]
+          author_email: github-actions[bot]@users.noreply.github.com
+          message: 'chore: check links'
+          add: '.'
+      
+      - name: Copy
+        if: steps.commit.outputs.committed == 'true'
+        run: pnpm run copy
+
+      - name: Deploy
+        if: steps.commit.outputs.committed == 'true'
+        uses: peaceiris/actions-gh-pages@v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          force_orphan: true
+          enable_jekyll: true

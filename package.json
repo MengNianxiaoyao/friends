@@ -27,9 +27,9 @@
     "build": "npm run build:json",
     "build:json": "npm run generate && npm run copy && npm run check",
     "generate": "tsx scripts/generate.ts",
-    "lint": "eslint .",
+    "lint": "eslint . --fix",
     "copy": "cp -r ./public/. ./dist && cp README.md ./dist/",
-    "check": "node check.js",
+    "check": "node scripts/check.js",
     "friends": "tsx scripts/index.ts add",
     "update": "git add -A && git commit -m '👥 update friends' && git push",
     "typecheck": "tsc --noEmit"

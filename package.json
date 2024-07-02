@@ -2,7 +2,7 @@
   "name": "friends",
   "type": "module",
   "version": "1.0.0",
-  "packageManager": "pnpm@8.14.3",
+  "packageManager": "pnpm@9.4.0",
   "description": "MengNianxiaoyao's friends",
   "author": {
     "name": "MengNianxiaoyao",

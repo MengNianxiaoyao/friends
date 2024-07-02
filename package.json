@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "packageManager": "pnpm@8.14.3",
   "description": "MengNianxiaoyao's friends",
+  "type": "module",
   "author": {
     "name": "MengNianxiaoyao",
     "email": "email@mnxy.eu.org",
@@ -24,17 +25,21 @@
   ],
   "scripts": {
     "build": "npm run build:json",
-    "build:json": "npm run generate && npm run copy",
+    "build:json": "npm run generate && npm run copy && npm run check",
     "generate": "tsx scripts/generate.ts",
     "lint": "eslint .",
     "copy": "cp -r ./public/. ./dist && cp README.md ./dist/",
+    "check": "node check.js",
     "friends": "tsx scripts/index.ts add",
     "update": "git add -A && git commit -m '👥 update friends' && git push",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "axios": "^1.6.8",
+    "chalk": "^5.3.0",
     "chalk-pipe": "^6.0.0",
     "commander": "^12.0.0",
+    "dotenv": "^16.4.5",
     "inquirer": "^9.2.17",
     "js-yaml": "^4.1.0"
   },

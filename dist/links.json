@@ -1,12 +1,14 @@
 [
   {
-    "name": "Fomalhaut🥝",
+    "blog": "Fomalhaut🥝🥝",
+    "name": "Fomalhaut",
     "url": "https://www.fomal.cc/",
     "avatar": "https://www.fomal.cc/assets/head.jpg",
     "desc": "Future is now 🍭🍭🍭",
     "color": "#0078e7"
   },
   {
+    "blog": "Mycpen",
     "name": "Mycpen",
     "url": "https://blog.cpen.top/",
     "avatar": "https://image.cpen.top/image/avatar.jpg",
@@ -14,20 +16,23 @@
     "color": "#0078e7"
   },
   {
-    "name": "七鳄の学习格",
+    "blog": "七鳄の学习格",
+    "name": "七鳄",
     "url": "https://blog.gmcj0816.top/",
     "avatar": "https://blog.gmcj0816.top/img/SeriousWission_TouXiangPic.png",
     "desc": "如果世界多了精彩，每一位都是创造者，大家都是你的观众",
     "color": "#0078e7"
   },
   {
-    "name": "LyShark- 孤风洗剑",
+    "blog": "LyShark- 孤风洗剑",
+    "name": "LyShark",
     "url": "https://www.lyshark.com",
     "avatar": "https://www.lyshark.com/images/baidu_logo.png",
     "desc": "道，可道，非常道；名，可名，非常名。—— 老子《道德经》",
     "color": "#0078e7"
   },
   {
+    "blog": "安知鱼",
     "name": "安知鱼",
     "url": "https://blog.anheyu.com/",
     "avatar": "https://img01.anheyu.com/useruploads/90/2023/04/23/6444e85234e51.jpg",
@@ -35,6 +40,7 @@
     "color": "#455cef"
   },
   {
+    "blog": "呆鱼",
     "name": "呆鱼",
     "url": "https://daiyu.fun/",
     "avatar": "https://daiyu.fun/img/avatar.png",
@@ -42,7 +48,8 @@
     "color": "#455cef"
   },
   {
-    "name": "偷闲小站",
+    "blog": "偷闲小站",
+    "name": "Andy Pang",
     "url": "https://blog.andypang.cc/",
     "avatar": "https://andy-images.oss-cn-beijing.aliyuncs.com/images/202309141917982.jpg",
     "desc": "跨越山海，终见曙光",

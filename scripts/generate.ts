@@ -8,6 +8,14 @@ import config from './config'
  */
 export interface Friend {
   /**
+   * 博客
+   */
+  blog: string
+  /**
+   * 称呼
+   */
+  name: string
+  /**
    * 链接
    */
   url: string
@@ -15,18 +23,6 @@ export interface Friend {
    * 头像
    */
   avatar: string
-  /**
-   * 种类
-   */
-  category?: string
-  /**
-   * 称呼
-   */
-  name: string
-  /**
-   * 博客
-   */
-  blog: string
   /**
    * 描述
    */

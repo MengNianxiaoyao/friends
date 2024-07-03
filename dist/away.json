@@ -1,5 +1,6 @@
 [
   {
+    "blog": "hohoyuns",
     "name": "hohoyun",
     "url": "http://www.hohoyun.cn",
     "avatar": "https://article.biliimg.com/bfs/article/455077b9b2f3f6b212abfeae5279c9b776a7f7d6.jpg",
@@ -7,7 +8,8 @@
     "color": "#0078e7"
   },
   {
-    "name": "累赘の博客",
+    "blog": "累赘の博客",
+    "name": "累赘",
     "url": "https://www.lzdbk.cn",
     "avatar": "https://s1.ax1x.com/2022/11/09/zSVN9O.png",
     "desc": "我在等一个人，等一个想保护的人。",

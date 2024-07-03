@@ -14,13 +14,8 @@ program.version(pkg.version)
 const questions = [
   {
     type: 'input',
-    name: 'url',
-    message: '站点链接：',
-  },
-  {
-    type: 'input',
-    name: 'avatar',
-    message: '头像链接：',
+    name: 'blog',
+    message: '站点名称：',
   },
   {
     type: 'input',
@@ -29,8 +24,13 @@ const questions = [
   },
   {
     type: 'input',
-    name: 'blog',
-    message: '站点名称：',
+    name: 'url',
+    message: '站点链接：',
+  },
+  {
+    type: 'input',
+    name: 'avatar',
+    message: '头像链接：',
   },
   {
     type: 'input',

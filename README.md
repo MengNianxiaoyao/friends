@@ -29,14 +29,16 @@
 ### 格式
 
 ```yml
-- name: 梦念逍遥のBLOG
+- blog: 梦念逍遥のBLOG
+  name: 梦念逍遥
   url: https://blog.mnxy.eu.org
   avatar: https://fastly.jsdelivr.net/gh/MengNianxiaoyao/blogimages@main/siteicon/icon.svg
   desc: 无梦之境
   color: '#0078e7'
 ```
 
-- `name`: 您的站点名称
+- `blog`: 您的站点名称
+- `name`: 您的作者名称
 - `url`: 博客链接
 - `avatar`: 头像图片链接，须使用 HTTPS（须为正方形或圆形），在保证清晰度的前提下，越小越利于迅速加载展示哦～
 - `desc`: 一句话描述，描述一下 `自己` 或者 `站点` 或者 `喜欢的话`？（最好不要太长，否则会被截断。）

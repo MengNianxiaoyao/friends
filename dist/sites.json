@@ -1,5 +1,6 @@
 [
   {
+    "blog": "Hexo",
     "name": "Hexo",
     "url": "https://hexo.io/zh-cn/",
     "avatar": "https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg",
@@ -7,6 +8,7 @@
     "color": "#455cef"
   },
   {
+    "blog": "butterfly",
     "name": "butterfly",
     "url": "https://butterfly.js.org/",
     "avatar": "https://butterfly.js.org/img/avatar.png",
@@ -14,6 +16,7 @@
     "color": "#455cef"
   },
   {
+    "blog": "Akilarの糖果屋",
     "name": "Akilar",
     "url": "https://akilar.top",
     "avatar": "https://npm.elemecdn.com/akilar-friends@latest/avatar/akilar.top.jpg",
@@ -21,13 +24,15 @@
     "color": "#455cef"
   },
   {
-    "name": "LYXの小破站",
+    "blog": "LYXの小破站",
+    "name": "LYX",
     "url": "https://yisous.xyz",
     "avatar": "https://bu.dusays.com/2022/09/01/63103c5038313.webp",
     "desc": "人有悲欢离合 月有阴晴圆缺",
     "color": "#455cef"
   },
   {
+    "blog": "SweetAlert",
     "name": "SweetAlert",
     "url": "https://sweetalert.js.org/",
     "avatar": "https://t4t5.com/images/avatar.jpg",

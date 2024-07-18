@@ -13,7 +13,7 @@
 - 会使用 Git 与 GitHub。
 - 已添加友链不会轻易删除。如您已移除本站链接，本站也将移除友链。
 - 申请友链时，请确保您的站点能够正常访问。
-- 友链状态每周四检查一次，站点长时间无法访问，我将视情况撤下友链。
+- 友链状态每周四自动检查一次，站点长时间无法访问，我将视情况撤下友链。
 
 #### 内容原则
 
@@ -49,6 +49,6 @@
 ## 如何交换友链
 
 - 在 GitHub 上 [`Fork`](https://github.com/MengNianxiaoyao/friends/fork) 此仓库
-- 按照以上格式在 [`datalink/links.yml`](https://github.com/MengNianxiaoyao/friends/blob/main/datalink/links.yml) 文件末尾新增你的信息（最末尾留一个空行）
-- 完成后，新建 `Pull Request`。
+- 按照以上格式在 [`links.yml`](https://github.com/MengNianxiaoyao/friends/blob/main/links/links.yml) 文件末尾新增你的信息（最末尾留一个空行）
+- 完成后，新建 [`Pull Request`](https://github.com/MengNianxiaoyao/friends/compare)。
 - 当 `Pull Request` 被合并后，请尽快于您的站点添加本站友链，您的站点将在 10 分钟内显示在 [梦念逍遥の友链](https://blog.mnxy.eu.org/links/) 里。

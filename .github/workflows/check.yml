@@ -30,9 +30,9 @@ jobs:
           message: 'chore: check links'
           add: '.'
       
-      - name: Copy
+      - name: Build
         if: steps.commit.outputs.committed == 'true'
-        run: pnpm run copy
+        run: pnpm run build
 
       - name: Deploy
         if: steps.commit.outputs.committed == 'true'

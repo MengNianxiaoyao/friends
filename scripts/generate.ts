@@ -3,6 +3,8 @@ import yaml from 'js-yaml'
 import consola from 'consola'
 import config from './config'
 
+const distFolder = config.outPath
+
 /**
  * 友链
  */
@@ -35,6 +37,10 @@ export interface Friend {
    * 代表色
    */
   color?: string
+  /**
+   * 错误信息
+   */
+  errormsg?: string
 }
 
 /**
@@ -43,8 +49,6 @@ export interface Friend {
  *
  */
 function generateLinksJson() {
-  const distFolder = 'dist'
-
   const links = yaml.load(fs.readFileSync(config.dataFile.links, 'utf8')) as Friend[]
 
   links.forEach((link) => {
@@ -55,7 +59,7 @@ function generateLinksJson() {
   if (!fs.existsSync(distFolder))
     fs.mkdirSync(distFolder, { recursive: true })
 
-  fs.writeFileSync(`${distFolder}/links.json`, JSON.stringify(links, null, 2))
+  fs.writeFileSync(`${config.outFile.links}`, JSON.stringify(links, null, 2))
   consola.success('Generated links.json successfully!')
 }
 
@@ -65,8 +69,6 @@ function generateLinksJson() {
  *
  */
 function generateSitesJson() {
-  const distFolder = 'dist'
-
   const sites = yaml.load(fs.readFileSync(config.dataFile.sites, 'utf8')) as Friend[]
 
   sites.forEach((sites) => {
@@ -77,7 +79,7 @@ function generateSitesJson() {
   if (!fs.existsSync(distFolder))
     fs.mkdirSync(distFolder, { recursive: true })
 
-  fs.writeFileSync(`${distFolder}/sites.json`, JSON.stringify(sites, null, 2))
+  fs.writeFileSync(`${config.outFile.sites}`, JSON.stringify(sites, null, 2))
   consola.success('Generated sites.json successfully!')
 }
 
@@ -87,8 +89,6 @@ function generateSitesJson() {
  *
  */
 function generateAwayJson() {
-  const distFolder = 'dist'
-
   const away = yaml.load(fs.readFileSync(config.dataFile.away, 'utf8')) as Friend[]
 
   away.forEach((away) => {
@@ -99,7 +99,7 @@ function generateAwayJson() {
   if (!fs.existsSync(distFolder))
     fs.mkdirSync(distFolder, { recursive: true })
 
-  fs.writeFileSync(`${distFolder}/away.json`, JSON.stringify(away, null, 2))
+  fs.writeFileSync(`${config.outFile.away}`, JSON.stringify(away, null, 2))
   consola.success('Generated away.json successfully!')
 }
 

@@ -1,11 +1,13 @@
 export default {
   dataFile: {
-    links: './datalink/links.yml',
-    sites: './datalink/sites.yml',
-    away: './datalink/away.yml',
+    links: './links/links.yml',
+    sites: './links/sites.yml',
+    away: './links/away.yml',
   },
+  outPath: 'dist',
   outFile: {
     links: './dist/links.json',
+    sites: './dist/sites.json',
     away: './dist/away.json',
   },
 }

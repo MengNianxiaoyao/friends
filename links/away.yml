@@ -1,0 +1,9 @@
+- blog: 累赘の博客
+  name: 累赘
+  url: https://www.lzdbk.cn/
+  avatar: https://s1.ax1x.com/2022/11/09/zSVN9O.png
+  desc: 我在等一个人，等一个想保护的人。
+  color: '#0078e7'
+  errormsg: >-
+    Client network socket disconnected before secure TLS connection was
+    established

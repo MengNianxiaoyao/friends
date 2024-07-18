@@ -1,7 +1,7 @@
 {
   "name": "friends",
   "type": "module",
-  "version": "1.0.0",
+  "version": "latest",
   "packageManager": "pnpm@9.4.0",
   "description": "MengNianxiaoyao's friends",
   "author": {
@@ -24,13 +24,12 @@
     "/lib"
   ],
   "scripts": {
-    "build": "npm run build:json",
-    "build:json": "npm run generate && npm run copy",
+    "build": "pnpm run build:json",
+    "build:json": "pnpm run generate && pnpm run copy",
     "generate": "tsx scripts/generate.ts",
     "lint": "eslint . --fix",
     "copy": "cp -r ./public/. ./dist && cp README.md ./dist/",
-    "check": "npm run check:json",
-    "check:json": "npm run generate && node scripts/check.js",
+    "check": "tsx scripts/check.ts",
     "friends": "tsx scripts/index.ts add",
     "update": "git add -A && git commit -m '👥 update friends' && git push",
     "typecheck": "tsc --noEmit"
@@ -39,9 +38,8 @@
     "axios": "^1.6.8",
     "chalk": "^5.3.0",
     "chalk-pipe": "^6.0.0",
-    "commander": "^12.0.0",
-    "dotenv": "^16.4.5",
-    "inquirer": "^9.2.17",
+    "commander": "^12.1.0",
+    "inquirer": "^9.3.2",
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
@@ -49,10 +47,10 @@
     "@types/chalk-pipe": "^2.0.4",
     "@types/inquirer": "^9.0.7",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20.12.2",
+    "@types/node": "^20.14.9",
     "consola": "^3.2.3",
     "eslint": "^8.57.0",
-    "tsx": "^4.7.1",
-    "typescript": "^5.4.3"
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.3"
   }
 }

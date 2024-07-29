@@ -39,11 +39,6 @@ const questions = [
   },
   {
     type: 'input',
-    name: 'email',
-    message: '联系邮箱：',
-  },
-  {
-    type: 'input',
     name: 'color',
     message: '代表色彩：',
     transformer(color: string) {
@@ -57,8 +52,6 @@ program.command('add').action(async () => {
   const item = yaml.dump([answers])
   consola.info(item)
   fs.appendFileSync(config.dataFile.links, item)
-  fs.appendFileSync(config.dataFile.sites, item)
-  fs.appendFileSync(config.dataFile.away, item)
 })
 
 export async function run() {

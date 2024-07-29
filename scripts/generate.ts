@@ -30,10 +30,6 @@ export interface Friend {
    */
   desc: string
   /**
-   * 邮件
-   */
-  email?: string
-  /**
    * 代表色
    */
   color?: string
@@ -51,11 +47,6 @@ export interface Friend {
 function generateLinksJson() {
   const links = yaml.load(fs.readFileSync(config.dataFile.links, 'utf8')) as Friend[]
 
-  links.forEach((link) => {
-    // hide email
-    delete link.email
-  })
-
   if (!fs.existsSync(distFolder))
     fs.mkdirSync(distFolder, { recursive: true })
 
@@ -71,11 +62,6 @@ function generateLinksJson() {
 function generateSitesJson() {
   const sites = yaml.load(fs.readFileSync(config.dataFile.sites, 'utf8')) as Friend[]
 
-  sites.forEach((sites) => {
-    // hide email
-    delete sites.email
-  })
-
   if (!fs.existsSync(distFolder))
     fs.mkdirSync(distFolder, { recursive: true })
 
@@ -90,11 +76,6 @@ function generateSitesJson() {
  */
 function generateAwayJson() {
   const away = yaml.load(fs.readFileSync(config.dataFile.away, 'utf8')) as Friend[]
-
-  away.forEach((away) => {
-    // hide email
-    delete away.email
-  })
 
   if (!fs.existsSync(distFolder))
     fs.mkdirSync(distFolder, { recursive: true })

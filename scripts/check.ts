@@ -5,6 +5,7 @@ import consola from 'consola'
 import yaml from 'js-yaml'
 import config from './config'
 
+axios.defaults.timeout = 30 * 1000
 const linkspath = config.dataFile.links
 const awaypath = config.dataFile.away
 

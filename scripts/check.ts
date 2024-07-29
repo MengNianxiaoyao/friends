@@ -109,6 +109,7 @@ async function checkDeadLinks() {
         catch (error) {
           consola.log(chalk.red(`[ERROR] Error checking ${link.url}: ${(error as Error).message}`))
           consola.log(chalk.red(`[ERROR] Link ${link.url} is still unable to access.`))
+          link.errormsg = (error as Error).message
         }
       }
 

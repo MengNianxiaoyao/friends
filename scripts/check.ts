@@ -136,8 +136,8 @@ async function checkDeadLinks() {
 }
 
 // 将无法访问的友链移动到 away.yaml 文件中
-async function saveDeadLinks(newDeadLinks: any[], aliveLinks: any[]) {
-  if (newDeadLinks.length > 0) {
+async function saveDeadLinks(newDead: any[], newAlive: any[]) {
+  if (newDead.length > 0) {
     consola.start(chalk.green('Saving dead links to away.yaml...'))
 
     // 读取 away.yaml 文件
@@ -146,7 +146,7 @@ async function saveDeadLinks(newDeadLinks: any[], aliveLinks: any[]) {
       deadLinks = []
 
     // 将新的死链添加到现有死链中
-    deadLinks = [...deadLinks, ...newDeadLinks]
+    deadLinks = [...deadLinks, ...newDead]
 
     // 将更新后的死链写入 away.yaml
     fs.writeFileSync(`${awaypath}`, yaml.dump(deadLinks))
@@ -156,7 +156,7 @@ async function saveDeadLinks(newDeadLinks: any[], aliveLinks: any[]) {
     consola.success('Skip save dead links.')
   }
 
-  if (aliveLinks.length > 0) {
+  if (newAlive.length > 0) {
     consola.start(chalk.green('Saving alive links to links.yaml...'))
 
     // 读取 links.yaml 文件
@@ -164,9 +164,9 @@ async function saveDeadLinks(newDeadLinks: any[], aliveLinks: any[]) {
     if (links === undefined || links === null)
       links = []
 
-    // 将存活链接写入 links.yaml
-    const updatedLinks = [...links, ...aliveLinks]
-    fs.writeFileSync(`${linkspath}`, yaml.dump(updatedLinks))
+    // 将更新后的存活链接写入 links.yaml
+    links = [...links, ...newAlive]
+    fs.writeFileSync(`${linkspath}`, yaml.dump(links))
     consola.success(chalk.green('Alive links saved.'))
   }
   else {

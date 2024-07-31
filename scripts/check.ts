@@ -103,7 +103,9 @@ async function checkDeadLinks() {
           })
           if (response.status === 200) {
             consola.success(chalk.green(`Link ${link.url} is alive.`))
-            delete link.errormsg // 删除 errormsg 字段
+            // 删除 errormsg 字段
+            delete link.errormsg
+            // 添加存活链接
             aliveLinks.push(link)
           }
         }
@@ -135,8 +137,8 @@ async function checkDeadLinks() {
   }
 }
 
-// 将无法访问的友链移动到 away.yaml 文件中
-async function saveDeadLinks(newDead: any[], newAlive: any[]) {
+// 更新链接状态并保存
+async function saveLinks(newDead: any[], newAlive: any[]) {
   if (newDead.length > 0) {
     consola.start(chalk.green('Saving dead links to away.yaml...'))
 
@@ -164,8 +166,10 @@ async function saveDeadLinks(newDead: any[], newAlive: any[]) {
     if (links === undefined || links === null)
       links = []
 
-    // 将更新后的存活链接写入 links.yaml
+    // 将新的存活链接添加到现有存活链接中
     links = [...links, ...newAlive]
+
+    // 将更新后的存活链接写入 links.yaml
     fs.writeFileSync(`${linkspath}`, yaml.dump(links))
     consola.success(chalk.green('Alive links saved.'))
   }
@@ -183,8 +187,8 @@ async function main() {
     // 检查所有链接
     const { deadLinks, aliveLinks } = await checkLinks()
 
-    // 将死链接保存到 away.yaml
-    await saveDeadLinks(deadLinks, aliveLinksFromDead)
+    // 更新链接文件
+    await saveLinks(deadLinks, aliveLinksFromDead)
 
     const alivelinks = aliveLinksFromDead.length + aliveLinks.length
     if (alivelinks > 0)

@@ -1,6 +1,7 @@
 # [梦念逍遥の友链](https://friends.mnxy.eu.org)
 
 [![links.json](https://img.shields.io/badge/links.json-yellow)](https://friends.mnxy.eu.org/links.json)
+![](https://cdn.statically.io/gh/MengNianxiaoyao/friends@main/public/timestamp.svg)
 
 ## 友链说明
 

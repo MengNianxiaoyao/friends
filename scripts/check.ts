@@ -13,7 +13,7 @@ const awaypath = config.dataFile.away
 async function readLinks() {
   consola.start('Reading links from links.yaml...')
   const links: any = yaml.load(fs.readFileSync(`${linkspath}`, 'utf-8'))
-  if (links === undefined || links === null) {
+  if (!links) {
     consola.success('Found 0 links.')
     return []
   }
@@ -144,8 +144,9 @@ async function saveLinks(newDead: any[], newAlive: any[]) {
 
     // 读取 away.yaml 文件
     let deadLinks: any = yaml.load(fs.readFileSync(`${awaypath}`, 'utf-8'))
-    if (deadLinks === undefined || deadLinks === null)
+    if (!deadLinks) {
       deadLinks = []
+    }
 
     // 将新的死链添加到现有死链中
     deadLinks = [...deadLinks, ...newDead]
@@ -163,8 +164,9 @@ async function saveLinks(newDead: any[], newAlive: any[]) {
 
     // 读取 links.yaml 文件
     let links: any = yaml.load(fs.readFileSync(`${linkspath}`, 'utf-8'))
-    if (links === undefined || links === null)
+    if (!links) {
       links = []
+    }
 
     // 将新的存活链接添加到现有存活链接中
     links = [...links, ...newAlive]
@@ -191,10 +193,12 @@ async function main() {
     await saveLinks(deadLinks, aliveLinksFromDead)
 
     const alivelinks = aliveLinksFromDead.length + aliveLinks.length
-    if (alivelinks > 0)
+    if (alivelinks > 0) {
       consola.success(`Total ${alivelinks} links are alive.`)
-    else
+    }
+    else {
       consola.log(chalk.yellow('[WARN] No links are alive.'))
+    }
   }
   catch (error) {
     consola.log(chalk.red('[ERROR] An error occurred:', error))

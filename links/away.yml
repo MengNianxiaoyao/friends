@@ -4,7 +4,7 @@
   avatar: https://s1.ax1x.com/2022/11/09/zSVN9O.png
   desc: 我在等一个人，等一个想保护的人。
   color: '#0078e7'
-  errormsg: timeout of 30000ms exceeded
+  errormsg: connect ECONNREFUSED 172.232.112.221:443
 - blog: 七鳄の学习格
   name: 七鳄
   url: https://blog.gmcj0816.top/

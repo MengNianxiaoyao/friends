@@ -12,15 +12,26 @@ jobs:
       - uses: actions/checkout@v4.1.7
       - uses: pnpm/action-setup@v4.0.0
         with:
-            run_install: true
+          run_install: true
       - uses: actions/setup-node@v4.0.2
         with:
           node-version: lts/*
           cache: pnpm
 
+      - name: Set up Timezone
+        run: |
+          sudo timedatectl set-timezone Asia/Shanghai
+      - name: Get current date with timezone
+        run: |
+          echo "CURRENT_DATE=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
+      - name: Create timestamp SVG
+        run: |
+          echo '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="226" height="20" role="img" aria-label="last check: ${{ env.CURRENT_DATE }}+08:00"><title>last check: ${{ env.CURRENT_DATE }}+08:00</title><linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="r"><rect width="226" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#r)"><rect width="53" height="20" fill="#555"/><rect x="53" width="173" height="20" fill="#4c1"/><rect width="226" height="20" fill="url(#s)"/></g><g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110"><text aria-hidden="true" x="275" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="430">last check</text><text x="275" y="140" transform="scale(.1)" fill="#fff" textLength="430">last check</text><text aria-hidden="true" x="1385" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="1630">${{ env.CURRENT_DATE }}+08:00</text><text x="1385" y="140" transform="scale(.1)" fill="#fff" textLength="1630">${{ env.CURRENT_DATE }}+08:00</text></g></svg>' >> timestamp.svg
+          mv -f timestamp.svg ./public/
+
       - name: Check links
         run: pnpm run check
-      
+
       - name: Commit changes
         id: commit
         uses: EndBug/add-and-commit@main
@@ -29,7 +40,7 @@ jobs:
           author_email: github-actions[bot]@users.noreply.github.com
           message: 'chore: check links'
           add: '.'
-      
+
       - name: Build
         if: steps.commit.outputs.committed == 'true'
         run: pnpm run build

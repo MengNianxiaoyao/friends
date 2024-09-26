@@ -18,11 +18,9 @@ jobs:
           node-version: lts/*
           cache: pnpm
 
-      - name: Set up Timezone
+      - name: Set time zone
         run: |
-          sudo timedatectl set-timezone Asia/Shanghai
-      - name: Get current date with timezone
-        run: |
+          sudo timedatectl set-timezone 'Asia/Shanghai'
           echo "CURRENT_DATE=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
       - name: Create timestamp SVG
         run: |

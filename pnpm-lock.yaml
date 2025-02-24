@@ -11,9 +11,6 @@ importers:
       axios:
         specifier: ^1.6.8
         version: 1.7.2
-      chalk:
-        specifier: ^5.3.0
-        version: 5.3.0
       chalk-pipe:
         specifier: ^6.0.0
         version: 6.0.0

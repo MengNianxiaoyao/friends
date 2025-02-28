@@ -45,18 +45,18 @@ async function main() {
 
     // 检查死链接是否恢复
     const aliveLinksFromDead: any[] = [];
+    const deadLinks: any[] = [];
     for (const link of awayLinks) {
       if (await checkLinkStatus(link)) {
         delete link.errormsg;
         aliveLinksFromDead.push(link);
+      } else {
+        deadLinks.push(link);
       }
     }
     links = [...links, ...aliveLinksFromDead]
-    await writeYamlFile(config.dataFile.away, awayLinks.filter((link: any) => !aliveLinksFromDead.includes(link)));
-    await writeYamlFile(config.dataFile.links, links);
 
     // 检查所有链接
-    let deadLinks = await readYamlFile(config.dataFile.away);
     const aliveLinks = [];
     for (const link of links) {
       if (await checkLinkStatus(link)) {

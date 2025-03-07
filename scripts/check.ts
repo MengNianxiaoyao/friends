@@ -31,10 +31,10 @@ async function writeYamlFile(filePath: string, data: any) {
 async function checkLinkStatus(link: any) {
   try {
     const response = await axios.get(link.url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Friends links Check Bot; +https://blog.mnxy.eu.org)' } });
-    consola.success('${link} access OK')
+    consola.success('${link.url} access OK');
     return response.status >= 200 && response.status < 300;
   } catch (error) {
-    consola.warn('${link} access failed')
+    consola.warn('${link.url} access failed');
     link.errormsg = (error as Error).message;
   }
 }
@@ -48,6 +48,7 @@ async function main() {
     // 检查死链接是否恢复
     const aliveLinksFromDead: any[] = [];
     const deadLinks: any[] = [];
+    consola.start('Checking the status of all links');
     for (const link of awayLinks) {
       if (await checkLinkStatus(link)) {
         delete link.errormsg;

@@ -31,8 +31,10 @@ async function writeYamlFile(filePath: string, data: any) {
 async function checkLinkStatus(link: any) {
   try {
     const response = await axios.get(link.url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Friends links Check Bot; +https://blog.mnxy.eu.org)' } });
+    consola.success('${link} access OK')
     return response.status >= 200 && response.status < 300;
   } catch (error) {
+    consola.warn('${link} access failed')
     link.errormsg = (error as Error).message;
   }
 }

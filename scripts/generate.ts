@@ -1,94 +1,44 @@
-import fs from 'node:fs'
+import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import yaml from 'js-yaml'
 import consola from 'consola'
 import config from './config'
 
-const distFolder = config.outPath
-
-/**
- * 友链
- */
 export interface Friend {
-  /**
-   * 博客
-   */
   blog: string
-  /**
-   * 称呼
-   */
   name: string
-  /**
-   * 链接
-   */
   url: string
-  /**
-   * 头像
-   */
   avatar: string
-  /**
-   * 描述
-   */
   desc: string
-  /**
-   * 代表色
-   */
   color?: string
-  /**
-   * 错误信息
-   */
   errormsg?: string
 }
 
-/**
- *
- * @description 生成 links.json
- *
- */
-function generateLinksJson() {
-  const links = yaml.load(fs.readFileSync(config.dataFile.links, 'utf8')) as Friend[]
+// 统一的文件处理函数
+async function generateJson(type: keyof typeof config.dataFile) {
+  const data = yaml.load(
+    await readFile(config.dataFile[type], 'utf8')
+  ) as Friend[]
 
-  if (!fs.existsSync(distFolder))
-    fs.mkdirSync(distFolder, { recursive: true })
-
-  fs.writeFileSync(`${config.outFile.links}`, JSON.stringify(links, null, 2))
-  consola.success('Generated links.json successfully!')
+  await mkdir(config.outPath, { recursive: true })
+  await writeFile(
+    config.outFile[type],
+    JSON.stringify(data, null, 2)
+  )
+  consola.success(`Generated ${type}.json successfully!`)
 }
 
-/**
- *
- * @description 生成 sites.json
- *
- */
-function generateSitesJson() {
-  const sites = yaml.load(fs.readFileSync(config.dataFile.sites, 'utf8')) as Friend[]
-
-  if (!fs.existsSync(distFolder))
-    fs.mkdirSync(distFolder, { recursive: true })
-
-  fs.writeFileSync(`${config.outFile.sites}`, JSON.stringify(sites, null, 2))
-  consola.success('Generated sites.json successfully!')
+async function main() {
+  try {
+    await Promise.all([
+      generateJson('links'),
+      generateJson('sites'),
+      generateJson('away')
+    ])
+  }
+  catch (e) {
+    consola.error(e)
+    process.exit(1)
+  }
 }
 
-/**
- *
- * @description 生成 away.json
- *
- */
-function generateAwayJson() {
-  const away = yaml.load(fs.readFileSync(config.dataFile.away, 'utf8')) as Friend[]
-
-  if (!fs.existsSync(distFolder))
-    fs.mkdirSync(distFolder, { recursive: true })
-
-  fs.writeFileSync(`${config.outFile.away}`, JSON.stringify(away, null, 2))
-  consola.success('Generated away.json successfully!')
-}
-
-try {
-  generateLinksJson()
-  generateSitesJson()
-  generateAwayJson()
-}
-catch (e) {
-  consola.error(e)
-}
+main()

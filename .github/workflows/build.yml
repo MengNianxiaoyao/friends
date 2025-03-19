@@ -11,48 +11,77 @@ on:
       - main
       - master
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4.1.7
+        with:
+          fetch-depth: 1
       - uses: pnpm/action-setup@v4.0.0
         with:
-            run_install: true
+          version: 8
+          run_install: false
       - uses: actions/setup-node@v4.0.2
         with:
-          node-version: lts/*
+          node-version: '20.10.0'
           cache: pnpm
-
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
       - name: Lint
         run: pnpm run lint
 
   typecheck:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4.1.7
-      - uses: actions/setup-node@v4.0.2
         with:
-          node-version: lts/*
+          fetch-depth: 1
       - uses: pnpm/action-setup@v4.0.0
         with:
-          run_install: true
-
+          version: 8
+          run_install: false
+      - uses: actions/setup-node@v4.0.2
+        with:
+          node-version: '20.10.0'
+          cache: pnpm
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
       - name: Typecheck
         run: pnpm run typecheck
 
   build:
+    needs: [lint, typecheck]
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # 只在主分支推送时部署
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4.1.7
+        with:
+          fetch-depth: 1
       - uses: pnpm/action-setup@v4.0.0
         with:
-            run_install: true
+          version: 8
+          run_install: false
       - uses: actions/setup-node@v4.0.2
         with:
-          node-version: lts/*
+          node-version: '20.10.0'
           cache: pnpm
-
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
       - name: Build
         run: pnpm run build
 
@@ -65,3 +94,4 @@ jobs:
           user_email: 'github-actions[bot]@users.noreply.github.com'
           force_orphan: true
           enable_jekyll: true
+          commit_message: 'chore: deploy website [skip ci]'

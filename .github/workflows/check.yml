@@ -23,7 +23,7 @@ jobs:
       - uses: pnpm/action-setup@v4.0.0
         with:
           run_install: false  # 分离安装步骤以便更好地利用缓存
-          version: 8  # 指定 pnpm 版本
+          version: 9  # 指定 pnpm 版本
 
       - uses: actions/setup-node@v4.0.2
         with:

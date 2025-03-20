@@ -12,10 +12,3 @@
   desc: 如果世界多了精彩，每一位都是创造者，大家都是你的观众
   color: '#0078e7'
   errormsg: connect ECONNREFUSED 154.209.101.102:443
-- blog: 偷闲小站
-  name: Andy Pang
-  url: https://blog.andypang.cc/
-  avatar: https://andy-images.oss-cn-beijing.aliyuncs.com/images/202309141917982.jpg
-  desc: 跨越山海，终见曙光
-  color: '#455cef'
-  errormsg: ''

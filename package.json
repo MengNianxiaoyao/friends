@@ -29,26 +29,29 @@
     "lint": "eslint . --fix",
     "copy": "cp -r ./public/. ./dist && cp README.md ./dist/",
     "check": "tsx scripts/check.ts",
-    "friends": "tsx scripts/index.ts add",
+    "add": "tsx scripts/index.ts add",
     "update": "git add -A && git commit -m '👥 update friends' && git push",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "axios": "^1.6.8",
-    "chalk-pipe": "^6.0.0",
-    "commander": "^12.1.0",
-    "inquirer": "^9.3.2",
+    "axios": "^1.8.4",
+    "chalk-pipe": "^6.2.0",
+    "commander": "^13.1.0",
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.38.4",
+    "@antfu/eslint-config": "^4.10.1",
     "@types/chalk-pipe": "^2.0.4",
-    "@types/inquirer": "^9.0.7",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20.14.9",
-    "consola": "^3.2.3",
-    "eslint": "^8.57.0",
-    "tsx": "^4.16.0",
-    "typescript": "^5.5.3"
+    "@types/node": "^22.13.10",
+    "consola": "^3.4.2",
+    "eslint": "^9.22.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }

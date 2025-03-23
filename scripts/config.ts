@@ -1,4 +1,5 @@
-import path from 'path'
+import path from 'node:path'
+import process from 'node:process'
 
 // 定义配置类型
 interface Config {
@@ -34,16 +35,14 @@ const config: Config = {
 }
 
 // 验证配置
-Object.values(config.dataFile).forEach(file => {
-  if (!file.endsWith('.yml')) {
+Object.values(config.dataFile).forEach((file) => {
+  if (!file.endsWith('.yml'))
     throw new Error(`Invalid data file format: ${file}`)
-  }
 })
 
-Object.values(config.outFile).forEach(file => {
-  if (!file.endsWith('.json')) {
+Object.values(config.outFile).forEach((file) => {
+  if (!file.endsWith('.json'))
     throw new Error(`Invalid output file format: ${file}`)
-  }
 })
 
 export default config

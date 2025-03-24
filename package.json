@@ -27,7 +27,7 @@
     "build:json": "pnpm run generate && pnpm run copy",
     "generate": "tsx scripts/generate.ts",
     "lint": "eslint . --fix",
-    "copy": "cp -r ./public/. ./dist && cp README.md ./dist/",
+    "copy": "cp -r ./public/. ./dist/ && cp README.md ./dist/",
     "check": "tsx scripts/check.ts",
     "add": "tsx scripts/index.ts add",
     "update": "git add -A && git commit -m '👥 update friends' && git push",

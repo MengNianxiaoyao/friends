@@ -12,3 +12,10 @@
   desc: 我在等一个人，等一个想保护的人。
   color: '#0078e7'
   errormsg: Request failed with status code 403
+- blog: 安知鱼
+  name: 安知鱼
+  url: https://blog.anheyu.com/
+  avatar: https://img01.anheyu.com/useruploads/90/2023/04/23/6444e85234e51.jpg
+  desc: 生活明朗，万物可爱
+  color: '#455cef'
+  errormsg: timeout of 30000ms exceeded

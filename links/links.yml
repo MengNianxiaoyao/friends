@@ -1,9 +1,3 @@
-- blog: Mycpen
-  name: Mycpen
-  url: https://blog.cpen.top/
-  avatar: https://image.cpen.top/image/avatar.jpg
-  desc: 这是一个有趣的博客
-  color: '#0078e7'
 - blog: 呆鱼
   name: 呆鱼
   url: https://daiyu.fun/
@@ -16,6 +10,12 @@
   avatar: https://www.fomal.cc/assets/head.jpg
   desc: Future is now 🍭🍭🍭
   color: '#0078e7'
+- blog: Mycpen
+  name: Mycpen
+  url: https://blog.cpen.top/
+  avatar: https://image.cpen.top/image/avatar.jpg
+  desc: 这是一个有趣的博客
+  color: '#0078e7'
 - blog: LyShark- 孤风洗剑
   name: LyShark
   url: https://www.lyshark.com/
@@ -27,10 +27,4 @@
   url: https://blog.andypang.cc/
   avatar: https://andy-images.oss-cn-beijing.aliyuncs.com/images/202309141917982.jpg
   desc: 跨越山海，终见曙光
-  color: '#455cef'
-- blog: 安知鱼
-  name: 安知鱼
-  url: https://blog.anheyu.com/
-  avatar: https://img01.anheyu.com/useruploads/90/2023/04/23/6444e85234e51.jpg
-  desc: 生活明朗，万物可爱
   color: '#455cef'

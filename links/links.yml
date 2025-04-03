@@ -10,17 +10,17 @@
   avatar: https://www.fomal.cc/assets/head.jpg
   desc: Future is now 🍭🍭🍭
   color: '#0078e7'
-- blog: Mycpen
-  name: Mycpen
-  url: https://blog.cpen.top/
-  avatar: https://image.cpen.top/image/avatar.jpg
-  desc: 这是一个有趣的博客
-  color: '#0078e7'
 - blog: LyShark- 孤风洗剑
   name: LyShark
   url: https://www.lyshark.com/
   avatar: https://www.lyshark.com/images/baidu_logo.png
   desc: 道，可道，非常道；名，可名，非常名。—— 老子《道德经》
+  color: '#0078e7'
+- blog: Mycpen
+  name: Mycpen
+  url: https://blog.cpen.top/
+  avatar: https://image.cpen.top/image/avatar.jpg
+  desc: 这是一个有趣的博客
   color: '#0078e7'
 - blog: 偷闲小站
   name: Andy Pang

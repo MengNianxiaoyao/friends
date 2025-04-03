@@ -18,4 +18,4 @@
   avatar: https://img01.anheyu.com/useruploads/90/2023/04/23/6444e85234e51.jpg
   desc: 生活明朗，万物可爱
   color: '#455cef'
-  errormsg: timeout of 30000ms exceeded
+  errormsg: Request failed with status code 502

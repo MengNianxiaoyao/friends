@@ -1,10 +1,3 @@
-- blog: 七鳄の学习格
-  name: 七鳄
-  url: https://blog.gmcj0816.top/
-  avatar: https://blog.gmcj0816.top/img/SeriousWission_TouXiangPic.png
-  desc: 如果世界多了精彩，每一位都是创造者，大家都是你的观众
-  color: '#0078e7'
-  errormsg: connect ECONNREFUSED 154.209.101.102:443
 - blog: 累赘の博客
   name: 累赘
   url: https://www.lzdbk.cn/
@@ -12,10 +5,10 @@
   desc: 我在等一个人，等一个想保护的人。
   color: '#0078e7'
   errormsg: Request failed with status code 403
-- blog: 安知鱼
-  name: 安知鱼
-  url: https://blog.anheyu.com/
-  avatar: https://img01.anheyu.com/useruploads/90/2023/04/23/6444e85234e51.jpg
-  desc: 生活明朗，万物可爱
-  color: '#455cef'
-  errormsg: Request failed with status code 502
+- blog: 七鳄の学习格
+  name: 七鳄
+  url: https://blog.gmcj0816.top/
+  avatar: https://blog.gmcj0816.top/img/SeriousWission_TouXiangPic.png
+  desc: 如果世界多了精彩，每一位都是创造者，大家都是你的观众
+  color: '#0078e7'
+  errormsg: connect ECONNREFUSED 154.209.101.102:443

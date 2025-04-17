@@ -1,12 +1,9 @@
-import fs from 'fs'
-import path from 'path'
-import yaml from 'js-yaml'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import process from 'node:process'
 import axios from 'axios'
-import { fileURLToPath } from 'url'
 import { consola } from 'consola'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+import yaml from 'js-yaml'
+import config from './config'
 
 interface FriendLink {
   blog: string
@@ -21,17 +18,18 @@ interface FriendLink {
 function parseFriendLink(content: string): FriendLink[] {
   try {
     const match = content.match(/```yaml\n([\s\S]*?)```/)
-    if (!match) return []
+    if (!match)
+      return []
 
     const data = yaml.load(match[1])
     const links = Array.isArray(data) ? data : [data]
-    
+
     return links.filter(link => (
-      link 
+      link
       && typeof link === 'object'
-      && Object.keys(link).every(key => 
-        ['blog', 'name', 'url', 'avatar', 'desc', 'color'].includes(key) 
-        && typeof link[key] === 'string'
+      && Object.keys(link).every(key =>
+        ['blog', 'name', 'url', 'avatar', 'desc', 'color'].includes(key)
+        && typeof link[key] === 'string',
       )
     ))
   }
@@ -41,27 +39,27 @@ function parseFriendLink(content: string): FriendLink[] {
 }
 
 async function fetchIssues(): Promise<void> {
-  const outputPath = path.join(__dirname, '..', 'links', 'links.yml')
-  
+  const outputPath = config.dataFile.links
+
   try {
     // 获取并处理数据
     const { data: issues } = await axios.get('https://api.github.com/repos/MengNianxiaoyao/friends/issues')
     const newLinks = issues
       .filter((issue: { state: string }) => issue.state === 'open')
       .flatMap((issue: { body: string }) => parseFriendLink(issue.body))
-    
+
     // 读取并合并友链
-    const existingLinks = fs.existsSync(outputPath)
-      ? yaml.load(fs.readFileSync(outputPath, 'utf8')) as FriendLink[] || []
+    const existingLinks = existsSync(outputPath)
+      ? yaml.load(readFileSync(outputPath, 'utf8')) as FriendLink[] || []
       : []
-    
+
     // 使用 Map 去重和更新
     const finalLinks = Array.from(
-      new Map([...existingLinks, ...newLinks].map(link => [link.url, link])).values()
+      new Map([...existingLinks, ...newLinks].map(link => [link.url, link])).values(),
     )
 
     // 写入文件
-    fs.writeFileSync(outputPath, yaml.dump(finalLinks), 'utf8')
+    writeFileSync(outputPath, yaml.dump(finalLinks), 'utf8')
     consola.success(`友链数据已更新，共 ${finalLinks.length} 条`)
   }
   catch (error) {

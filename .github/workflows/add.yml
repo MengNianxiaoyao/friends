@@ -1,0 +1,63 @@
+name: Add
+
+on:
+  issues:
+  watch:
+    types: [started]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.1.7
+      with:
+        fetch-depth: 1
+
+    - uses: pnpm/action-setup@v4.0.0
+      with:
+        run_install: false  # 分离安装步骤以便更好地利用缓存
+        version: 9  # 指定 pnpm 版本
+
+    - uses: actions/setup-node@v4.0.2
+      with:
+        node-version: '20.10.0'  # 使用具体版本而不是 lts/*
+        cache: 'pnpm'
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Add
+      run: pnpm run add
+
+    - name: Commit changes
+      id: commit
+      uses: EndBug/add-and-commit@main
+      with:
+        author_name: github-actions[bot]
+        author_email: github-actions[bot]@users.noreply.github.com
+        message: 'chore: add link'
+        add: '.'
+        push: true  # 确保更改被推送
+
+    - name: Add label to issue
+      if: steps.commit.outputs.committed == 'true'
+      uses: actions-ecosystem/action-add-labels@v1.1.3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        labels: active
+
+    - name: Build
+      if: steps.commit.outputs.committed == 'true'
+      run: pnpm run build
+
+    - name: Deploy
+      if: steps.commit.outputs.committed == 'true'
+      uses: peaceiris/actions-gh-pages@v4.0.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        force_orphan: true
+        enable_jekyll: true
+        commit_message: 'chore: deploy website [skip ci]'  # 避免触发新的工作流

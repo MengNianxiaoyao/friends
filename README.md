@@ -49,7 +49,9 @@
 
 ## 如何交换友链
 
-- 在 GitHub 上 [`Fork`](https://github.com/MengNianxiaoyao/friends/fork) 此仓库
-- 按照以上格式在 [`links.yml`](https://github.com/MengNianxiaoyao/friends/blob/main/links/links.yml) 文件末尾新增你的信息（最末尾留一个空行）
-- 完成后，新建 [`Pull Request`](https://github.com/MengNianxiaoyao/friends/compare)。
-- 当 `Pull Request` 被合并后，请尽快于您的站点添加本站友链，您的站点将在 10 分钟内显示在 [梦念逍遥の友链](https://blog.mnxy.eu.org/links/) 里。
+**现已实现自动添加友链**
+
+- 在 GitHub 上新建 [Issue](https://github.com/MengNianxiaoyao/friends/issues/new/choose)。
+- 按照模板格式完成填写。
+- 填写完成提交后会自动进行友链添加。
+- 当链接添加完成后，请尽快于您的站点添加本站友链，您的站点将在 10 分钟内显示在 [梦念逍遥の友链](https://blog.mnxy.eu.org/links/) 里。

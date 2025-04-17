@@ -1,0 +1,42 @@
+name: 友链模板
+description: 自助添加友链。
+labels: []
+body:
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 检查清单
+      description: 请认真检查以下清单中的每一项，并在相符的项前打勾。
+      options:
+        - required: true
+          label: 合法的、非营利性、无商业广告、无木马植入。
+        - required: false
+          label: 有实质性原创内容的 HTTPS 站点，发布过至少 5 篇原创文章，内容题材不限。
+        - required: false
+          label: 最好有独立域名。
+        - required: false
+          label: 博客正常运行，非刚搭建好。
+  - type: textarea
+    id: config-file
+    validations:
+      required: true
+    attributes:
+      label: 友链信息
+      description: 请在冒号后填写，不要修改格式。颜色可自行选择是否修改，如需修改请直接修改 HEX 值。
+      value: |
+        ```yaml
+        - blog: 
+          name: 
+          url: 
+          avatar: 
+          desc: 
+          color: '#0078e7'
+        ```
+  - type: input
+    id: friends-html
+    attributes:
+      label: 友链地址
+      description: 请输入您的友链页面地址。
+      placeholder: "如: https://yoursite.com/friends/"
+    validations:
+      required: true

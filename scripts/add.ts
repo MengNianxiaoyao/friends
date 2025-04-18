@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { readFile, writeFile } from 'node:fs/promises'
 import process from 'node:process'
 import axios from 'axios'
 import { consola } from 'consola'
@@ -18,6 +18,29 @@ interface GithubIssue {
   body: string
   state: string
   labels: Array<{name: string}>
+}
+
+// 读取 YAML 文件
+async function readYamlFile(filePath: string) {
+  try {
+    const data = yaml.load(await readFile(filePath, 'utf8'))
+    return Array.isArray(data) ? data : []
+  }
+  catch (error) {
+    consola.error(`Error reading ${filePath}: ${(error as Error).message}`)
+    return []
+  }
+}
+
+// 写入 YAML 文件
+async function writeYamlFile(filePath: string, data: any) {
+  try {
+    await writeFile(filePath, yaml.dump(data), 'utf8')
+    consola.success(`Data saved to ${filePath}`)
+  }
+  catch (error) {
+    consola.error(`Error writing to ${filePath}: ${(error as Error).message}`)
+  }
 }
 
 // 并发控制器
@@ -91,12 +114,17 @@ async function processIssue(issue: GithubIssue, links: FriendLink[]) {
   
   const parsedLinks = parseFriendLink(issue.body)
   if (parsedLinks.length > 0) {
+    // 移除 errormsg 字段
+    parsedLinks.forEach(link => {
+      delete (link as any).errormsg
+    })
     links.push(...parsedLinks)
   }
 }
 
 async function fetchIssues(): Promise<void> {
-  const outputPath = config.dataFile.links
+  const linksPath = config.dataFile.links
+  const awayPath = config.dataFile.away
 
   try {
     consola.start('获取并处理 GitHub Issues...')
@@ -117,19 +145,35 @@ async function fetchIssues(): Promise<void> {
       )
     )
 
-    // 读取并合并友链
-    const existingLinks = existsSync(outputPath)
-      ? yaml.load(readFileSync(outputPath, 'utf8')) as FriendLink[] || []
-      : []
+    // 读取现有友链和失效友链
+    const [existingLinks, awayLinks] = await Promise.all([
+      readYamlFile(linksPath),
+      readYamlFile(awayPath),
+    ])
 
-    // 使用 Map 去重和更新
+    // 获取新增链接的URL集合
+    const activeUrls = new Set(newLinks.map(link => link.url))
+    
+    // 从away.yml中找到要恢复的链接
+    const recoveredLinks = awayLinks.filter(link => activeUrls.has(link.url))
+    
+    // 从away.yml中移除恢复的链接
+    const remainingAwayLinks = awayLinks.filter(link => !activeUrls.has(link.url))
+
+    // 合并所有活跃链接
     const finalLinks = Array.from(
-      new Map([...existingLinks, ...newLinks].map(link => [link.url, link])).values(),
+      new Map([...existingLinks, ...newLinks, ...recoveredLinks].map(link => [link.url, link])).values()
     )
 
     // 写入文件
-    writeFileSync(outputPath, yaml.dump(finalLinks), 'utf8')
+    await Promise.all([
+      writeYamlFile(linksPath, finalLinks),
+      writeYamlFile(awayPath, remainingAwayLinks),
+    ])
+    
     consola.success(`友链数据已更新，共 ${finalLinks.length} 条`)
+    if (recoveredLinks.length > 0)
+      consola.success(`从失效链接中恢复了 ${recoveredLinks.length} 条链接`)
   }
   catch (error) {
     consola.error(`更新友链失败: ${error instanceof Error ? error.message : String(error)}`)

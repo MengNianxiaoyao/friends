@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { readFile, writeFile } from 'node:fs/promises'
 import process from 'node:process'
 import axios from 'axios'
 import { consola } from 'consola'
@@ -19,6 +19,29 @@ interface GithubIssue {
   body: string
   state: string
   labels: Array<{name: string}>
+}
+
+// 读取 YAML 文件
+async function readYamlFile(filePath: string) {
+  try {
+    const data = yaml.load(await readFile(filePath, 'utf8'))
+    return Array.isArray(data) ? data : []
+  }
+  catch (error) {
+    consola.error(`Error reading ${filePath}: ${(error as Error).message}`)
+    return []
+  }
+}
+
+// 写入 YAML 文件
+async function writeYamlFile(filePath: string, data: any) {
+  try {
+    await writeFile(filePath, yaml.dump(data), 'utf8')
+    consola.success(`Data saved to ${filePath}`)
+  }
+  catch (error) {
+    consola.error(`Error writing to ${filePath}: ${(error as Error).message}`)
+  }
 }
 
 // 并发控制器
@@ -125,13 +148,10 @@ async function process404Issues(): Promise<void> {
     }
 
     // 读取现有友链
-    const existingLinks = existsSync(linksPath)
-      ? yaml.load(readFileSync(linksPath, 'utf8')) as FriendLink[] || []
-      : []
-    
-    const existingAwayLinks = existsSync(awayPath)
-      ? yaml.load(readFileSync(awayPath, 'utf8')) as FriendLink[] || []
-      : []
+    const [existingLinks, existingAwayLinks] = await Promise.all([
+      readYamlFile(linksPath),
+      readYamlFile(awayPath),
+    ])
 
     // 获取404链接的URL集合
     const deadUrls = new Set(deadLinks.map(link => link.url))
@@ -145,8 +165,10 @@ async function process404Issues(): Promise<void> {
     )
 
     // 写入文件
-    writeFileSync(linksPath, yaml.dump(updatedLinks), 'utf8')
-    writeFileSync(awayPath, yaml.dump(updatedAwayLinks), 'utf8')
+    await Promise.all([
+      writeYamlFile(linksPath, updatedLinks),
+      writeYamlFile(awayPath, updatedAwayLinks),
+    ])
     
     consola.success(`已处理404标签的友链: ${deadLinks.length} 条`)
     consola.success(`正常链接: ${updatedLinks.length} 条, 失效链接: ${updatedAwayLinks.length} 条`)

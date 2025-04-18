@@ -21,7 +21,7 @@ async function readYamlFile(filePath: string) {
 // 写入 YAML 文件
 async function writeYamlFile(filePath: string, data: any) {
   try {
-    await writeFile(filePath, yaml.dump(data))
+    await writeFile(filePath, yaml.dump(data), 'utf8')
     consola.success(`Data saved to ${filePath}`)
   }
   catch (error) {

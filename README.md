@@ -29,7 +29,7 @@
 
 ### 格式
 
-```yml
+```yaml
 - blog: 梦念逍遥のBLOG
   name: 梦念逍遥
   url: https://blog.mnxy.eu.org
@@ -51,7 +51,7 @@
 
 **现已实现自动添加友链**
 
-- 在 GitHub 上新建 [Issue](https://github.com/MengNianxiaoyao/friends/issues/new/choose)。
+- 在 GitHub 上新建 [issue](https://github.com/MengNianxiaoyao/friends/issues/new/choose)。
 - 按照模板格式完成填写。
 - 填写完成提交后会自动进行友链添加。
 - 当链接添加完成后，请尽快于您的站点添加本站友链，您的站点将在 10 分钟内显示在 [梦念逍遥の友链](https://blog.mnxy.eu.org/links/) 里。

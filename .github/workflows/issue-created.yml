@@ -1,0 +1,19 @@
+name: Issue Created Handler
+
+on:
+  issues:
+    types: 
+      - opened
+
+permissions:
+  issues: write
+
+jobs:
+  add-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add active label to new issues
+        uses: actions-ecosystem/action-add-labels@main
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          labels: active

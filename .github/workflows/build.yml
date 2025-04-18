@@ -94,4 +94,4 @@ jobs:
           user_email: 'github-actions[bot]@users.noreply.github.com'
           force_orphan: true
           enable_jekyll: true
-          commit_message: 'chore: deploy website [skip ci]'
+          commit_message: 'chore: deploy website'

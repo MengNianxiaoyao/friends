@@ -30,6 +30,7 @@
     "copy": "cp -r ./public/. ./dist/ && cp README.md ./dist/",
     "check": "tsx scripts/check.ts",
     "add": "tsx scripts/add.ts",
+    "404": "tsx scripts/404.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

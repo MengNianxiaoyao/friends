@@ -12,6 +12,7 @@ interface FriendLink {
   avatar: string
   desc: string
   color: string
+  errormsg?: string
 }
 
 interface GithubIssue {
@@ -77,64 +78,83 @@ function parseFriendLink(content: string): FriendLink[] {
 }
 
 // 处理单个 Issue
-async function processIssue(issue: GithubIssue, links: FriendLink[]) {
+async function processIssue(issue: GithubIssue, deadLinks: FriendLink[]) {
   if (issue.state !== 'open') return
   
-  // 检查 issue 是否有 active 标签
-  const isActive = issue.labels.some(label => label.name === 'active')
+  // 检查issue是否有404标签
+  const is404 = issue.labels.some(label => label.name === '404')
   
-  // 只处理有 active 标签的 issue
-  if (!isActive) {
-    consola.info(`跳过非 active 标签的 Issue`)
-    return
-  }
-  
-  const parsedLinks = parseFriendLink(issue.body)
-  if (parsedLinks.length > 0) {
-    links.push(...parsedLinks)
+  if (is404) {
+    const links = parseFriendLink(issue.body)
+    if (links.length === 0) return
+    
+    // 添加错误信息并放入away链接
+    links.forEach(link => {
+      link.errormsg = 'Marked as 404 by issue label'
+      deadLinks.push(link)
+    })
   }
 }
 
-async function fetchIssues(): Promise<void> {
-  const outputPath = config.dataFile.links
+async function process404Issues(): Promise<void> {
+  const linksPath = config.dataFile.links
+  const awayPath = config.dataFile.away
 
   try {
-    consola.start('获取并处理 GitHub Issues...')
+    consola.start('处理404标签的Issues...')
     
-    // 获取数据
+    // 获取并处理数据
     const { data: issues } = await axios.get('https://api.github.com/repos/MengNianxiaoyao/friends/issues')
     
-    // 收集友链
-    const newLinks: FriendLink[] = []
+    // 收集404标记的链接
+    const deadLinks: FriendLink[] = []
     
     // 使用并发控制器处理 issues
-    const controller = new ConcurrencyController(10) // 限制最大并发数为10
+    const controller = new ConcurrencyController(10)
     await Promise.all(
       issues.map((issue: GithubIssue) => 
         controller.add(async () => {
-          await processIssue(issue, newLinks)
+          await processIssue(issue, deadLinks)
         })
       )
     )
 
-    // 读取并合并友链
-    const existingLinks = existsSync(outputPath)
-      ? yaml.load(readFileSync(outputPath, 'utf8')) as FriendLink[] || []
+    if (deadLinks.length === 0) {
+      consola.info('没有发现404标签的Issues')
+      return
+    }
+
+    // 读取现有友链
+    const existingLinks = existsSync(linksPath)
+      ? yaml.load(readFileSync(linksPath, 'utf8')) as FriendLink[] || []
+      : []
+    
+    const existingAwayLinks = existsSync(awayPath)
+      ? yaml.load(readFileSync(awayPath, 'utf8')) as FriendLink[] || []
       : []
 
-    // 使用 Map 去重和更新
-    const finalLinks = Array.from(
-      new Map([...existingLinks, ...newLinks].map(link => [link.url, link])).values(),
+    // 获取404链接的URL集合
+    const deadUrls = new Set(deadLinks.map(link => link.url))
+    
+    // 从links.yml中移除404链接
+    const updatedLinks = existingLinks.filter(link => !deadUrls.has(link.url))
+    
+    // 合并404链接到away.yml
+    const updatedAwayLinks = Array.from(
+      new Map([...existingAwayLinks, ...deadLinks].map(link => [link.url, link])).values()
     )
 
     // 写入文件
-    writeFileSync(outputPath, yaml.dump(finalLinks), 'utf8')
-    consola.success(`友链数据已更新，共 ${finalLinks.length} 条`)
+    writeFileSync(linksPath, yaml.dump(updatedLinks), 'utf8')
+    writeFileSync(awayPath, yaml.dump(updatedAwayLinks), 'utf8')
+    
+    consola.success(`已处理404标签的友链: ${deadLinks.length} 条`)
+    consola.success(`正常链接: ${updatedLinks.length} 条, 失效链接: ${updatedAwayLinks.length} 条`)
   }
   catch (error) {
-    consola.error(`更新友链失败: ${error instanceof Error ? error.message : String(error)}`)
+    consola.error(`处理404标签失败: ${error instanceof Error ? error.message : String(error)}`)
     process.exit(1)
   }
 }
 
-fetchIssues()
+process404Issues()

@@ -18,16 +18,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4.1.7
         with:
-          fetch-depth: 1  # 优化克隆深度
+          fetch-depth: 1
 
       - uses: pnpm/action-setup@v4.0.0
         with:
-          run_install: false  # 分离安装步骤以便更好地利用缓存
-          version: 9  # 指定 pnpm 版本
+          run_install: false
+          version: 9
 
       - uses: actions/setup-node@v4.0.2
         with:
-          node-version: '20.10.0'  # 使用具体版本而不是 lts/*
+          node-version: '20.10.0'
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -54,7 +54,7 @@ jobs:
           author_email: github-actions[bot]@users.noreply.github.com
           message: 'chore: check links'
           add: '.'
-          push: true  # 确保更改被推送
+          push: true
 
       - name: Build
         if: steps.commit.outputs.committed == 'true'
@@ -70,4 +70,4 @@ jobs:
           user_email: 'github-actions[bot]@users.noreply.github.com'
           force_orphan: true
           enable_jekyll: true
-          commit_message: 'chore: deploy website [skip ci]'  # 避免触发新的工作流
+          commit_message: 'chore: deploy website'

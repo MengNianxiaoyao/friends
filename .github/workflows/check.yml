@@ -5,7 +5,6 @@ on:
   schedule:
     - cron: '0 21 * * 4'
 
-# 限制并发运行
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true

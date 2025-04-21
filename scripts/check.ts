@@ -78,7 +78,7 @@ async function checkLinkStatus(link: any) {
 // 主函数
 async function main() {
   try {
-    const [links, awayLinks] = await Promise.all([
+    const [links, awaylinks] = await Promise.all([
       readYamlFile(config.dataFile.links),
       readYamlFile(config.dataFile.away),
     ])
@@ -88,7 +88,7 @@ async function main() {
     consola.start('Checking the status of all links')
 
     const controller = new ConcurrencyController(10) // 限制最大并发数为5
-    const allLinks = [...awayLinks, ...links]
+    const allLinks = [...awaylinks, ...links]
     await Promise.all(
       allLinks.map(link =>
         controller.add(async () => {
@@ -109,7 +109,8 @@ async function main() {
       writeYamlFile(config.dataFile.links, aliveLinks),
     ])
 
-    consola.success(`Total ${aliveLinks.length} links are alive.`)
+    consola.success(`处理链接共 ${allLinks.length} 条`)
+    consola.success(`正常链接 ${aliveLinks.length} 条，失效链接 ${deadLinks.length} 条`)
   }
   catch (error) {
     consola.error(`An error occurred: ${(error as Error).message}`)

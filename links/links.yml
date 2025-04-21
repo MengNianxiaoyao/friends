@@ -1,24 +1,30 @@
-- blog: 呆鱼
-  name: 呆鱼
-  url: https://daiyu.fun/
-  avatar: https://daiyu.fun/img/avatar.png
-  desc: 命运之所以称为命运，正是因为它无可改变。
-  color: '#455cef'
 - blog: Fomalhaut🥝🥝
   name: Fomalhaut
   url: https://www.fomal.cc/
   avatar: https://www.fomal.cc/assets/head.jpg
   desc: Future is now 🍭🍭🍭
   color: '#0078e7'
+- blog: 呆鱼
+  name: 呆鱼
+  url: https://daiyu.fun/
+  avatar: https://daiyu.fun/img/avatar.png
+  desc: 命运之所以称为命运，正是因为它无可改变。
+  color: '#455cef'
 - blog: LyShark- 孤风洗剑
   name: LyShark
   url: https://www.lyshark.com/
   avatar: https://www.lyshark.com/images/baidu_logo.png
   desc: 道，可道，非常道；名，可名，非常名。—— 老子《道德经》
   color: '#0078e7'
-- blog: Mycpen
-  name: Mycpen
-  url: https://blog.cpen.top/
-  avatar: https://image.cpen.top/image/avatar.jpg
-  desc: 这是一个有趣的博客
-  color: '#0078e7'
+- blog: 偷闲小站
+  name: Andy Pang
+  url: https://blog.andypang.cc/
+  avatar: https://andy-images.oss-cn-beijing.aliyuncs.com/images/202309141917982.jpg
+  desc: 跨越山海，终见曙光
+  color: '#455cef'
+- blog: 安知鱼
+  name: 安知鱼
+  url: https://blog.anheyu.com/
+  avatar: https://img01.anheyu.com/useruploads/90/2023/04/23/6444e85234e51.jpg
+  desc: 生活明朗，万物可爱
+  color: '#455cef'

@@ -32,7 +32,6 @@ async function main() {
   try {
     await Promise.all([
       generateJson('links'),
-      generateJson('sites'),
       generateJson('away'),
     ])
   }

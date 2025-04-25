@@ -5,13 +5,11 @@ import process from 'node:process'
 interface Config {
   dataFile: {
     links: string
-    sites: string
     away: string
   }
   outPath: string
   outFile: {
     links: string
-    sites: string
     away: string
   }
 }
@@ -23,13 +21,11 @@ const DIST_DIR = path.join(process.cwd(), 'dist')
 const config: Config = {
   dataFile: {
     links: path.join(LINKS_DIR, 'links.yml'),
-    sites: path.join(LINKS_DIR, 'sites.yml'),
     away: path.join(LINKS_DIR, 'away.yml'),
   },
   outPath: DIST_DIR,
   outFile: {
     links: path.join(DIST_DIR, 'links.json'),
-    sites: path.join(DIST_DIR, 'sites.json'),
     away: path.join(DIST_DIR, 'away.json'),
   },
 }

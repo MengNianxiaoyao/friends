@@ -1,2 +1,2 @@
 User-agent: *
-Disallow: /links.json, /sites.json, /away.json
+Disallow: /links.json, /away.json

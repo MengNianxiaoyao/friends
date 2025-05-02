@@ -5,7 +5,7 @@
 
 ## 友链说明
 
-如进行网站链接、描述、头像等信息更换，请在此创建新的 [`Pull Request`](https://github.com/MengNianxiaoyao/friends/compare)。请按照格式申请
+如进行网站链接、描述、头像等信息更换，请在此创建新的 [`Issuse`](https://github.com/MengNianxiaoyao/friends/issues/new?template=custom.yaml)。请按照格式申请
 
 ### 原则
 
@@ -51,7 +51,7 @@
 
 **现已实现自动添加友链**
 
-- 在 GitHub 上新建 [issue](https://github.com/MengNianxiaoyao/friends/issues/new/choose)。
+- 在 GitHub 上新建 [Issue](https://github.com/MengNianxiaoyao/friends/issues/new?template=custom.yaml)。
 - 按照模板格式完成填写。
 - 填写完成提交后会自动进行友链添加。
 - 当链接添加完成后，请尽快于您的站点添加本站友链，您的站点将在 10 分钟内显示在 [梦念逍遥の友链](https://blog.mnxy.eu.org/links/) 里。

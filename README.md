@@ -5,7 +5,7 @@
 
 ## 友链说明
 
-如进行网站链接、描述、头像等信息更换，请在此创建新的 [`Issuse`](https://github.com/MengNianxiaoyao/friends/issues/new?template=custom.yaml)。请按照格式申请
+如进行网站链接、描述、头像等信息更换，请在此创建新的 [Issuse](https://github.com/MengNianxiaoyao/friends/issues/new?template=custom.yaml)。请按照格式申请
 
 ### 原则
 

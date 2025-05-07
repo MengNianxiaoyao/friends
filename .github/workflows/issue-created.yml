@@ -4,6 +4,7 @@ on:
   issues:
     types: 
       - opened
+      - edited
 
 permissions:
   issues: write
@@ -12,8 +13,35 @@ jobs:
   add-label:
     runs-on: ubuntu-latest
     steps:
-      - name: Add active label to new issues
-        uses: actions-ecosystem/action-add-labels@main
+      - uses: actions/checkout@v4.1.7
+      - uses: actions/setup-node@v4.0.2
         with:
-          github_token: ${{ secrets.TOKEN }}
-          labels: active
+          node-version: '20.x'
+      - run: npm install axios
+      - name: Add active label to new issues
+        uses: actions/github-script@main
+        with:
+          github-token: ${{ secrets.TOKEN }}
+          script: |
+            const axios = require('axios');
+            axios.defaults.timeout = 15 * 1000
+            const body = context.payload.issue.body;
+            const yamlMatch = body.match(/```yaml\n([\s\S]*?)```/);
+            const url = yamlMatch[1].match(/http?s:\/\/[^\s]+/)[0];
+            try {
+              await axios.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Friends links Check Bot; +https://blog.mnxy.eu.org)' } });
+              github.rest.issues.setLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ['active']
+              });
+            } catch (error) {
+              console.log(error.massage);
+              github.rest.issues.setLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ['404']
+              });
+            }

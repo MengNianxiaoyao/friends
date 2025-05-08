@@ -18,7 +18,7 @@ interface FriendLink {
 interface GithubIssue {
   body: string
   state: string
-  labels: Array<{name: string}>
+  labels: Array<{ name: string }>
 }
 
 // 读取 YAML 文件
@@ -102,17 +102,19 @@ function parseFriendLink(content: string): FriendLink[] {
 
 // 处理单个 Issue
 async function processIssue(issue: GithubIssue, deadLinks: FriendLink[]) {
-  if (issue.state !== 'open') return
-  
+  if (issue.state !== 'open')
+    return
+
   // 检查issue是否有404标签
   const is404 = issue.labels.some(label => label.name === '404')
-  
+
   if (is404) {
     const links = parseFriendLink(issue.body)
-    if (links.length === 0) return
-    
+    if (links.length === 0)
+      return
+
     // 添加错误信息并放入away链接
-    links.forEach(link => {
+    links.forEach((link) => {
       link.errormsg = 'Marked as 404 by issue label'
       deadLinks.push(link)
     })
@@ -125,21 +127,21 @@ async function process404Issues(): Promise<void> {
 
   try {
     consola.start('处理404标签的Issues...')
-    
+
     // 获取并处理数据
     const { data: issues } = await axios.get('https://api.github.com/repos/MengNianxiaoyao/friends/issues')
-    
+
     // 收集404标记的链接
     const deadLinks: FriendLink[] = []
-    
+
     // 使用并发控制器处理 issues
     const controller = new ConcurrencyController(10)
     await Promise.all(
-      issues.map((issue: GithubIssue) => 
+      issues.map((issue: GithubIssue) =>
         controller.add(async () => {
           await processIssue(issue, deadLinks)
-        })
-      )
+        }),
+      ),
     )
 
     if (deadLinks.length === 0) {
@@ -155,13 +157,13 @@ async function process404Issues(): Promise<void> {
 
     // 获取404链接的URL集合
     const deadUrls = new Set(deadLinks.map(link => link.url))
-    
+
     // 从links.yml中移除404链接
     const updatedLinks = existingLinks.filter(link => !deadUrls.has(link.url))
-    
+
     // 合并404链接到away.yml
     const updatedAwayLinks = Array.from(
-      new Map([...existingAwayLinks, ...deadLinks].map(link => [link.url, link])).values()
+      new Map([...existingAwayLinks, ...deadLinks].map(link => [link.url, link])).values(),
     )
 
     // 写入文件
@@ -169,7 +171,7 @@ async function process404Issues(): Promise<void> {
       writeYamlFile(linksPath, updatedLinks),
       writeYamlFile(awayPath, updatedAwayLinks),
     ])
-    
+
     consola.success(`已处理404标签的友链: ${deadLinks.length} 条`)
     consola.success(`正常链接: ${updatedLinks.length} 条, 失效链接: ${updatedAwayLinks.length} 条`)
   }

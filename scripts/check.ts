@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises'
+import process from 'node:process'
 import axios from 'axios'
 import { consola } from 'consola'
 import yaml from 'js-yaml'
@@ -26,6 +27,56 @@ async function writeYamlFile(filePath: string, data: any) {
   }
   catch (error) {
     consola.error(`Error writing to ${filePath}: ${(error as Error).message}`)
+  }
+}
+
+// 更新 issue 标签
+async function updateIssueLabels(url: string, isAlive: boolean) {
+  try {
+    // 获取所有 issues，添加认证头部
+    const { data: issues } = await axios.get('https://api.github.com/repos/MengNianxiaoyao/friends/issues', {
+      headers: {
+        'Accept': 'application/vnd.github+json',
+        'Authorization': `Bearer ${process.env.TOKEN}`,
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    })
+
+    // 查找包含该 URL 的 issue
+    for (const issue of issues) {
+      if (issue.body.includes(url)) {
+        const labels = issue.labels.map((label: any) => label.name)
+        const currentStatus = labels.includes('active') ? 'active' : (labels.includes('404') ? '404' : null)
+        const newStatus = isAlive ? 'active' : '404'
+
+        // 如果状态没有变化，跳过更新
+        if (currentStatus === newStatus)
+          continue
+
+        // 移除旧的状态标签
+        const updatedLabels = labels.filter((label: string) => label !== 'active' && label !== '404')
+        // 添加新的状态标签
+        updatedLabels.push(newStatus)
+
+        // 更新 issue 标签，添加认证头部
+        await axios.put(
+          `https://api.github.com/repos/MengNianxiaoyao/friends/issues/${issue.number}/labels`,
+          { labels: updatedLabels },
+          {
+            headers: {
+              'Accept': 'application/vnd.github+json',
+              'Authorization': `Bearer ${process.env.TOKEN}`,
+              'X-GitHub-Api-Version': '2022-11-28',
+            },
+          },
+        )
+
+        consola.success(`已更新 ${url} 的标签为 ${newStatus}`)
+      }
+    }
+  }
+  catch (error) {
+    consola.error(`更新标签失败: ${(error as Error).message}`)
   }
 }
 
@@ -66,11 +117,13 @@ async function checkLinkStatus(link: any) {
   try {
     await axios.get(link.url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Friends links Check Bot; +https://blog.mnxy.eu.org)' } })
     consola.success(`${link.url} access OK`)
+    await updateIssueLabels(link.url, true)
     return true
   }
   catch (error) {
     consola.warn(`${link.url} access failed`)
     link.errormsg = (error as Error).message
+    await updateIssueLabels(link.url, false)
     return false
   }
 }

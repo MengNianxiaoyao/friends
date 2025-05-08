@@ -43,6 +43,8 @@ jobs:
           mv -f timestamp.svg ./public/
 
       - name: Check links
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
         run: pnpm run check
 
       - name: Commit changes

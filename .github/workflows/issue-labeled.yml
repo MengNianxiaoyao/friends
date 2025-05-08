@@ -18,6 +18,13 @@ jobs:
   process-issue:
     runs-on: ubuntu-latest
     steps:
+      # 运行标签评论器
+      - name: Label Commenter
+        uses: peaceiris/actions-label-commenter@v1.10.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          config_file: .github/label-commenter-config.yml
+
       - uses: actions/checkout@v4.1.7
         with:
           fetch-depth: 1
@@ -57,9 +64,3 @@ jobs:
           add: '.'
           push: true
 
-      # 运行标签评论器
-      - name: Label Commenter
-        uses: peaceiris/actions-label-commenter@v1.10.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          config_file: .github/label-commenter-config.yml

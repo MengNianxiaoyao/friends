@@ -65,9 +65,12 @@ function parseFriendLink(content: string): FriendLink[] {
       && typeof link === 'object'
       && Object.keys(link).every(key =>
         ['blog', 'name', 'url', 'avatar', 'desc', 'color'].includes(key)
-        && typeof link[key] === 'string',
+        && (key === 'color' ? (typeof link[key] === 'string' || link[key] === undefined || link[key] === '') : typeof link[key] === 'string'),
       )
-    ))
+    )).map(link => ({
+      ...link,
+      color: link.color || '#455cef', // 设置默认颜色
+    }))
   }
   catch {
     return []

@@ -6,6 +6,7 @@ import yaml from 'js-yaml'
 import config from './config'
 
 axios.defaults.timeout = 30 * 1000
+const TOKEN = process.env.TOKEN
 
 // 读取 YAML 文件
 async function readYamlFile(filePath: string) {
@@ -31,17 +32,8 @@ async function writeYamlFile(filePath: string, data: any) {
 }
 
 // 更新 issue 标签
-async function updateIssueLabels(url: string, isAlive: boolean) {
+async function updateIssueLabels(url: string, issues: any, isAlive: boolean) {
   try {
-    // 获取所有 issues，添加认证头部
-    const { data: issues } = await axios.get('https://api.github.com/repos/MengNianxiaoyao/friends/issues', {
-      headers: {
-        'Accept': 'application/vnd.github+json',
-        'Authorization': `Bearer ${process.env.TOKEN}`,
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-    })
-
     // 查找包含该 URL 的 issue
     for (const issue of issues) {
       if (issue.body.includes(url)) {
@@ -65,7 +57,7 @@ async function updateIssueLabels(url: string, isAlive: boolean) {
           {
             headers: {
               'Accept': 'application/vnd.github+json',
-              'Authorization': `Bearer ${process.env.TOKEN}`,
+              'Authorization': `Bearer ${TOKEN}`,
               'X-GitHub-Api-Version': '2022-11-28',
             },
           },
@@ -113,17 +105,17 @@ class ConcurrencyController {
 }
 
 // 检查链接状态
-async function checkLinkStatus(link: any) {
+async function checkLinkStatus(link: any, issues: any) {
   try {
     await axios.get(link.url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Friends links Check Bot; +https://blog.mnxy.eu.org)' } })
     consola.success(`${link.url} access OK`)
-    await updateIssueLabels(link.url, true)
+    await updateIssueLabels(link.url, issues, true)
     return true
   }
   catch (error) {
     consola.warn(`${link.url} access failed`)
     link.errormsg = (error as Error).message
-    await updateIssueLabels(link.url, false)
+    await updateIssueLabels(link.url, issues, false)
     return false
   }
 }
@@ -140,12 +132,21 @@ async function main() {
     const deadLinks: any[] = []
     consola.start('Checking the status of all links')
 
+    // 获取所有 issues，添加认证头部
+    const { data: issues } = await axios.get('https://api.github.com/repos/MengNianxiaoyao/friends/issues', {
+      headers: {
+        'Accept': 'application/vnd.github+json',
+        'Authorization': `Bearer ${TOKEN}`,
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    })
+
     const controller = new ConcurrencyController(10) // 限制最大并发数为10
     const allLinks = [...awaylinks, ...links]
     await Promise.all(
       allLinks.map(link =>
         controller.add(async () => {
-          const isAlive = await checkLinkStatus(link)
+          const isAlive = await checkLinkStatus(link, issues)
           if (isAlive) {
             delete link.errormsg
             aliveLinks.push(link)

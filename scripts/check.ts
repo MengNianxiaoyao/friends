@@ -140,7 +140,7 @@ async function main() {
     const deadLinks: any[] = []
     consola.start('Checking the status of all links')
 
-    const controller = new ConcurrencyController(10) // 限制最大并发数为5
+    const controller = new ConcurrencyController(10) // 限制最大并发数为10
     const allLinks = [...awaylinks, ...links]
     await Promise.all(
       allLinks.map(link =>

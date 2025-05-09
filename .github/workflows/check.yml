@@ -55,14 +55,13 @@ jobs:
           author_email: github-actions[bot]@users.noreply.github.com
           message: 'chore: check links'
           add: '.'
-          push: true
 
       - name: Build
-        if: steps.commit.outputs.committed == 'true'
+        if: steps.commit.outputs.pushed == 'true'
         run: pnpm run build
 
       - name: Deploy
-        if: steps.commit.outputs.committed == 'true'
+        if: steps.commit.outputs.pushed == 'true'
         uses: peaceiris/actions-gh-pages@v4.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -12,55 +12,17 @@ permissions:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   process-issue:
     runs-on: ubuntu-latest
     steps:
-      # 运行标签评论器
+      - uses: actions/checkout@v4.1.7
+        with:
+          fetch-depth: 1
       - name: Label Commenter
         uses: peaceiris/actions-label-commenter@v1.10.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           config_file: .github/label-commenter-config.yml
-
-      - uses: actions/checkout@v4.1.7
-        with:
-          fetch-depth: 1
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4.0.0
-        with:
-          run_install: false
-          version: 9
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4.0.2
-        with:
-          node-version: '20.10.0'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      # 根据标签运行相应脚本
-      - name: Run add.ts for active issues
-        if: contains(github.event.issue.labels.*.name, 'active')
-        run: pnpm run add
-
-      - name: Run 404.ts for 404 issues
-        if: contains(github.event.issue.labels.*.name, '404')
-        run: pnpm run 404
-
-      # 提交更改
-      - name: Commit changes
-        id: commit
-        uses: EndBug/add-and-commit@main
-        with:
-          author_name: github-actions[bot]
-          author_email: github-actions[bot]@users.noreply.github.com
-          message: 'chore: update links from issues'
-          add: '.'
-          push: true
-

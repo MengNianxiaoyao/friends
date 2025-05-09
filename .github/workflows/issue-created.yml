@@ -6,42 +6,60 @@ on:
       - opened
       - edited
 
-permissions:
-  issues: write
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   add-label:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+
     steps:
       - uses: actions/checkout@v4.1.7
+        with:
+          fetch-depth: 1
+
+      - uses: pnpm/action-setup@v4.0.0
+        with:
+          run_install: false
+          version: 9
+
       - uses: actions/setup-node@v4.0.2
         with:
-          node-version: '20.x'
-      - run: npm install axios
-      - name: Add active label to new issues
-        uses: actions/github-script@main
+          node-version: '20.10.0'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run add.ts for issue
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: pnpm run add
+
+      - name: Commit changes
+        id: commit
+        uses: EndBug/add-and-commit@main
         with:
-          github-token: ${{ secrets.TOKEN }}
-          script: |
-            const axios = require('axios');
-            axios.defaults.timeout = 15 * 1000
-            const body = context.payload.issue.body;
-            const yamlMatch = body.match(/```yaml\n([\s\S]*?)```/);
-            const url = yamlMatch[1].match(/http?s:\/\/[^\s]+/)[0];
-            try {
-              await axios.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Friends links Check Bot; +https://blog.mnxy.eu.org)' } });
-              github.rest.issues.setLabels({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                labels: ['active']
-              });
-            } catch (error) {
-              console.log(error.massage);
-              github.rest.issues.setLabels({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                labels: ['404']
-              });
-            }
+          author_name: github-actions[bot]
+          author_email: github-actions[bot]@users.noreply.github.com
+          message: 'chore: update links from issues'
+          add: '.'
+      
+      - name: Build
+        if: steps.commit.outputs.pushed == 'true'
+        run: pnpm run build
+
+      - name: Deploy
+        if: steps.commit.outputs.pushed == 'true'
+        uses: peaceiris/actions-gh-pages@v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          force_orphan: true
+          enable_jekyll: true
+          commit_message: 'chore: deploy website'

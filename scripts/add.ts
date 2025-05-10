@@ -5,30 +5,39 @@ import { consola } from 'consola'
 import yaml from 'js-yaml'
 import config from './config'
 
-axios.defaults.timeout = 30 * 1000
+// 定义友链数据结构
+interface FriendLink {
+  blog: string    // 博客名称
+  name: string    // 博主名称
+  url: string     // 博客链接
+  avatar: string  // 头像链接
+  desc: string    // 博客描述
+  color: string   // 主题色
+  errormsg?: string // 可选的错误信息
+}
+
+// 定义 GitHub Issue 数据结构
+interface GithubIssue {
+  number: number  // Issue 编号
+  body: string    // Issue 内容
+  state: string   // Issue 状态（open/closed）
+  labels: Array<{ name: string }> // Issue 标签列表
+}
 
 const TOKEN = process.env.TOKEN
 const ISSUE_NUMBER = process.env.ISSUE_NUMBER
-
-interface FriendLink {
-  blog: string
-  name: string
-  url: string
-  avatar: string
-  desc: string
-  color: string
-  errormsg?: string
+const GITHUB_API_HEADERS = {
+  'Accept': 'application/vnd.github+json',
+  'Authorization': `Bearer ${TOKEN}`,
+  'X-GitHub-Api-Version': '2022-11-28',
 }
+const linksPath = config.dataFile.links
+const awayPath = config.dataFile.away
 
-interface GithubIssue {
-  number: number
-  body: string
-  state: string
-  labels: Array<{ name: string }>
-}
+axios.defaults.timeout = 30 * 1000
 
 // 读取 YAML 文件
-async function readYamlFile(filePath: string) {
+async function readYamlFile(filePath: string): Promise<FriendLink[]> {
   try {
     const data = yaml.load(await readFile(filePath, 'utf8'))
     return Array.isArray(data) ? data : []
@@ -40,7 +49,7 @@ async function readYamlFile(filePath: string) {
 }
 
 // 写入 YAML 文件
-async function writeYamlFile(filePath: string, data: any) {
+async function writeYamlFile(filePath: string, data: FriendLink[]): Promise<void> {
   try {
     await writeFile(filePath, yaml.dump(data), 'utf8')
     consola.success(`Data saved to ${filePath}`)
@@ -51,26 +60,26 @@ async function writeYamlFile(filePath: string, data: any) {
 }
 
 // 验证并解析友链数据
+// 从 Issue 内容中提取 YAML 格式的友链数据，并验证数据格式的正确性
 function parseFriendLink(content: string): FriendLink[] {
   try {
+    // 使用正则表达式匹配 YAML 代码块
     const match = content.match(/```yaml\n([\s\S]*?)```/)
     if (!match)
       return []
 
+    // 解析 YAML 数据并确保为数组格式
     const data = yaml.load(match[1])
     const links = Array.isArray(data) ? data : [data]
+    const requiredKeys = ['blog', 'name', 'url', 'avatar', 'desc', 'color']
 
+    // 验证每个友链对象的属性类型
     return links.filter(link => (
-      link
-      && typeof link === 'object'
-      && Object.keys(link).every(key =>
-        ['blog', 'name', 'url', 'avatar', 'desc', 'color'].includes(key)
-        && (key === 'color' ? (typeof link[key] === 'string' || link[key] === undefined || link[key] === '') : typeof link[key] === 'string'),
+      link && typeof link === 'object' && requiredKeys.every(key =>
+        // color 属性可以为空或字符串，其他属性必须为字符串
+        key === 'color' ? !link[key] || typeof link[key] === 'string' : typeof link[key] === 'string',
       )
-    )).map(link => ({
-      ...link,
-      color: link.color || '#455cef', // 设置默认颜色
-    }))
+    )).map(link => ({ ...link, color: link.color || '#455cef' })) // 设置默认主题色
   }
   catch {
     return []
@@ -80,7 +89,9 @@ function parseFriendLink(content: string): FriendLink[] {
 // 检查链接状态
 async function checkLinkStatus(link: FriendLink): Promise<boolean> {
   try {
-    await axios.get(link.url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Friends links Check Bot; +https://blog.mnxy.eu.org)' } })
+    await axios.get(link.url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Friends links Check Bot; +https://blog.mnxy.eu.org)' },
+    })
     consola.success(`${link.url} access OK`)
     return true
   }
@@ -92,32 +103,20 @@ async function checkLinkStatus(link: FriendLink): Promise<boolean> {
 }
 
 // 更新 issue 标签
-async function updateIssueLabels(issue: GithubIssue, isAlive: boolean) {
+async function updateIssueLabels(issue: GithubIssue, isAlive: boolean): Promise<void> {
   try {
     const labels = issue.labels.map(label => label.name)
-    const currentStatus = labels.includes('active') ? 'active' : (labels.includes('404') ? '404' : null)
     const newStatus = isAlive ? 'active' : '404'
 
-    // 如果状态没有变化，跳过更新
-    if (currentStatus === newStatus)
+    if (labels.includes(newStatus))
       return
 
-    // 移除旧的状态标签
-    const updatedLabels = labels.filter(label => label !== 'active' && label !== '404')
-    // 添加新的状态标签
-    updatedLabels.push(newStatus)
+    const updatedLabels = [...labels.filter(label => !['active', '404'].includes(label)), newStatus]
 
-    // 更新 issue 标签
     await axios.put(
       `https://api.github.com/repos/MengNianxiaoyao/friends/issues/${issue.number}/labels`,
       { labels: updatedLabels },
-      {
-        headers: {
-          'Accept': 'application/vnd.github+json',
-          'Authorization': `Bearer ${TOKEN}`,
-          'X-GitHub-Api-Version': '2022-11-28',
-        },
-      },
+      { headers: GITHUB_API_HEADERS },
     )
 
     consola.success(`已更新 Issue #${issue.number} 的标签为 ${newStatus}`)
@@ -128,51 +127,13 @@ async function updateIssueLabels(issue: GithubIssue, isAlive: boolean) {
 }
 
 // 处理单个 Issue
+// 根据 Issue 状态处理友链：关闭则删除，开启则检查可访问性
 async function processIssue(issue: GithubIssue): Promise<{ aliveLinks: FriendLink[], deadLinks: FriendLink[] }> {
-  if (issue.state !== 'open')
-    return { aliveLinks: [], deadLinks: [] }
-
-  const parsedLinks = parseFriendLink(issue.body)
-  if (parsedLinks.length === 0)
-    return { aliveLinks: [], deadLinks: [] }
-
-  const aliveLinks: FriendLink[] = []
-  const deadLinks: FriendLink[] = []
-
-  // 检查每个链接的状态
-  for (const link of parsedLinks) {
-    const isAlive = await checkLinkStatus(link)
-    if (isAlive) {
-      delete link.errormsg
-      aliveLinks.push(link)
-    }
-    else {
-      deadLinks.push(link)
-    }
-    await updateIssueLabels(issue, isAlive)
-  }
-
-  return { aliveLinks, deadLinks }
-}
-
-async function main(): Promise<void> {
-  const linksPath = config.dataFile.links
-  const awayPath = config.dataFile.away
-
-  try {
-    consola.start('获取并处理 GitHub Issues...')
-
-    // 获取触发工作流的 issue
-    const { data: issue } = await axios.get(`https://api.github.com/repos/MengNianxiaoyao/friends/issues/${ISSUE_NUMBER}`, {
-      headers: {
-        'Accept': 'application/vnd.github+json',
-        'Authorization': `Bearer ${TOKEN}`,
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-    })
-
-    // 处理 issue 中的链接
-    const { aliveLinks, deadLinks } = await processIssue(issue)
+  // 处理已关闭的 Issue：从友链文件中删除相关链接
+  if (issue.state === 'closed') {
+    const parsedLinks = parseFriendLink(issue.body)
+    if (parsedLinks.length === 0)
+      return { aliveLinks: [], deadLinks: [] }
 
     // 读取现有友链
     const [existingLinks, existingAwayLinks] = await Promise.all([
@@ -180,32 +141,73 @@ async function main(): Promise<void> {
       readYamlFile(awayPath),
     ])
 
-    // 更新链接状态，同时更新重复链接的信息
-    const finalLinks = Array.from(
-      new Map(
-        [...existingLinks.filter(link => !deadLinks.some(d => d.url === link.url)), ...aliveLinks]
-          .map((link) => {
-            // 查找是否存在相同 URL 的新链接
-            const newLink = aliveLinks.find(a => a.url === link.url)
-            // 如果找到相同 URL 的新链接，使用新链接的信息
-            return [link.url, newLink || link]
-          }),
-      ).values(),
+    // 从两个文件中过滤掉关闭 issue 中的链接
+    const issueUrls = parsedLinks.map(link => link.url)
+    const updatedLinks = existingLinks.filter(link => !issueUrls.includes(link.url))
+    const updatedAwayLinks = existingAwayLinks.filter(link => !issueUrls.includes(link.url))
+
+    // 写入更新后的文件
+    await Promise.all([
+      writeYamlFile(linksPath, updatedLinks),
+      writeYamlFile(awayPath, updatedAwayLinks),
+    ])
+
+    consola.success(`Issue #${issue.number} 已关闭，相关友链已删除`)
+    return { aliveLinks: [], deadLinks: [] }
+  }
+
+  // 解析并验证新的友链数据
+  const parsedLinks = parseFriendLink(issue.body)
+  if (parsedLinks.length === 0)
+    return { aliveLinks: [], deadLinks: [] }
+
+  // 检查友链可访问性并更新状态
+  const [link] = parsedLinks
+  const isAlive = await checkLinkStatus(link)
+  if (isAlive)
+    delete link.errormsg
+
+  // 更新 Issue 标签并返回结果
+  await updateIssueLabels(issue, isAlive)
+  return {
+    aliveLinks: isAlive ? [link] : [],
+    deadLinks: isAlive ? [] : [link],
+  }
+}
+
+async function main(): Promise<void> {
+  try {
+    consola.start('获取并处理 GitHub Issues...')
+
+    // 获取触发工作流的 issue
+    const { data: issue } = await axios.get(
+      `https://api.github.com/repos/MengNianxiaoyao/friends/issues/${ISSUE_NUMBER}`,
+      { headers: GITHUB_API_HEADERS },
     )
 
-    const finalAwayLinks = Array.from(
-      new Map(
-        [...existingAwayLinks.filter(link => !aliveLinks.some(a => a.url === link.url)), ...deadLinks]
-          .map((link) => {
-            // 查找是否存在相同 URL 的新链接
-            const newLink = deadLinks.find(d => d.url === link.url)
-            // 如果找到相同 URL 的新链接，使用新链接的信息
-            return [link.url, newLink || link]
-          }),
-      ).values(),
-    )
+    // 处理 issue 中的链接
+    const { aliveLinks, deadLinks } = await processIssue(issue)
 
-    // 写入文件
+    if (issue.state === 'closed')
+      return
+
+    // 读取现有友链
+    const [existingLinks, existingAwayLinks] = await Promise.all([
+      readYamlFile(linksPath),
+      readYamlFile(awayPath),
+    ])
+
+    const createFinalLinks = (current: FriendLink[], updates: FriendLink[], filter: FriendLink[]) =>
+      Array.from(
+        new Map(
+          [...current.filter(link => !filter.some(f => f.url === link.url)), ...updates]
+            .map(link => [link.url, updates.find(u => u.url === link.url) || link]),
+        ).values(),
+      )
+
+    const finalLinks = createFinalLinks(existingLinks, aliveLinks, deadLinks)
+    const finalAwayLinks = createFinalLinks(existingAwayLinks, deadLinks, aliveLinks)
+
     await Promise.all([
       writeYamlFile(linksPath, finalLinks),
       writeYamlFile(awayPath, finalAwayLinks),

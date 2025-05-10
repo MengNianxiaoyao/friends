@@ -4,6 +4,7 @@ on:
   issues:
     types: 
       - opened
+      - closed
       - edited
 
 concurrency:
@@ -45,7 +46,7 @@ jobs:
         with:
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
-          message: 'chore: update links from issues'
+          message: 'chore: update link from issues'
           add: '.'
       
       - name: Build

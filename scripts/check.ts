@@ -7,15 +7,15 @@ import config from './config'
 
 // 定义友链数据结构（简化版）
 interface FriendLink {
-  url: string      // 博客链接
+  url: string // 博客链接
   errormsg?: string // 可选的错误信息
   [key: string]: any // 其他可能的属性
 }
 
 // 定义 GitHub Issue 数据结构
 interface GithubIssue {
-  number: number  // Issue 编号
-  body: string    // Issue 内容
+  number: number // Issue 编号
+  body: string // Issue 内容
   labels: Array<{ name: string }> // Issue 标签列表
 }
 const TOKEN = process.env.TOKEN

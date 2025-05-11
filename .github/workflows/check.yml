@@ -48,7 +48,7 @@ jobs:
         run: pnpm run check
 
       - name: Commit changes
-        id: commit
+        id: push
         uses: EndBug/add-and-commit@main
         with:
           author_name: github-actions[bot]
@@ -57,11 +57,11 @@ jobs:
           add: '.'
 
       - name: Build
-        if: steps.commit.outputs.pushed == 'true'
+        if: steps.push.outputs.pushed == 'true'
         run: pnpm run build
 
       - name: Deploy
-        if: steps.commit.outputs.pushed == 'true'
+        if: steps.push.outputs.pushed == 'true'
         uses: peaceiris/actions-gh-pages@v4.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

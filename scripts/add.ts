@@ -7,20 +7,20 @@ import config from './config'
 
 // 定义友链数据结构
 interface FriendLink {
-  blog: string    // 博客名称
-  name: string    // 博主名称
-  url: string     // 博客链接
-  avatar: string  // 头像链接
-  desc: string    // 博客描述
-  color: string   // 主题色
+  blog: string // 博客名称
+  name: string // 博主名称
+  url: string // 博客链接
+  avatar: string // 头像链接
+  desc: string // 博客描述
+  color: string // 主题色
   errormsg?: string // 可选的错误信息
 }
 
 // 定义 GitHub Issue 数据结构
 interface GithubIssue {
-  number: number  // Issue 编号
-  body: string    // Issue 内容
-  state: string   // Issue 状态（open/closed）
+  number: number // Issue 编号
+  body: string // Issue 内容
+  state: string // Issue 状态（open/closed）
   labels: Array<{ name: string }> // Issue 标签列表
 }
 

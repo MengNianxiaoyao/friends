@@ -38,6 +38,14 @@ jobs:
       - name: Lint
         run: pnpm run lint
 
+      - name: Commit changes
+        uses: EndBug/add-and-commit@main
+        with:
+          author_name: github-actions[bot]
+          author_email: github-actions[bot]@users.noreply.github.com
+          message: 'chore: check_format_lint"'
+          add: '.'
+
   typecheck:
     runs-on: ubuntu-latest
     timeout-minutes: 5

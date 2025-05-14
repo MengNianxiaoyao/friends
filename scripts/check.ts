@@ -177,8 +177,9 @@ async function main(): Promise<void> {
       writeYamlFile(config.dataFile.links, results.alive),
     ])
 
+    consola.success(`友链数据已更新`)
     consola.success(`处理链接共 ${allLinks.length} 条`)
-    consola.success(`正常链接 ${results.alive.length} 条，失效链接 ${results.dead.length} 条`)
+    consola.info(`正常链接 ${results.alive.length} 条，失效链接 ${results.dead.length} 条`)
   }
   catch (error) {
     consola.error(`An error occurred: ${error instanceof Error ? error.message : String(error)}`)

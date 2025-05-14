@@ -214,8 +214,6 @@ async function main(): Promise<void> {
     ])
 
     consola.success(`友链数据已更新`)
-    consola.success(`正常链接: ${finalLinks.length} 条`)
-    consola.success(`失效链接: ${finalAwayLinks.length} 条`)
   }
   catch (error) {
     consola.error(`处理友链失败: ${error instanceof Error ? error.message : String(error)}`)

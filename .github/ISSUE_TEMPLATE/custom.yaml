@@ -1,6 +1,6 @@
 name: 友链申请
 title: "[友链] "
-description: 自助添加友链
+label: 自助添加友链
 body:
   - type: checkboxes
     id: checks

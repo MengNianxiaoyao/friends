@@ -6,8 +6,8 @@
   color: '#0078e7'
 - blog: 呆鱼
   name: 呆鱼
-  url: https://daiyu.fun/
-  avatar: https://daiyu.fun/img/avatar.png
+  url: https://blog.yep.vin/
+  avatar: https://blog.yep.vin/static/img/avatar.png
   desc: 命运之所以称为命运，正是因为它无可改变。
   color: '#455cef'
 - blog: AdproのBlog
@@ -26,13 +26,13 @@
 - blog: Mycpen
   name: Mycpen
   url: https://blog.cpen.top/
-  avatar: https://image.cpen.top/image/avatar.jpg
+  avatar: https://cdn.cbd.int/mycpen-blog@0.0.0-elalhcands/img/avatar.png
   desc: 这是一个有趣的博客
   color: '#0078e7'
 - blog: 偷闲小站
   name: Andy Pang
   url: https://blog.andypang.cc/
-  avatar: https://andy-images.oss-cn-beijing.aliyuncs.com/images/202309141917982.jpg
+  avatar: https://image.andypang.cc/halo/avatar.webp
   desc: 跨越山海，终见曙光
   color: '#455cef'
 - blog: 安知鱼

@@ -22,6 +22,9 @@
     "/bin",
     "/lib"
   ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "build": "pnpm run build:json",
     "build:json": "pnpm run generate && pnpm run copy",
@@ -44,8 +47,5 @@
     "eslint": "^9.22.0",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
-  },
-  "engines": {
-    "node": ">=20.0.0"
   }
 }

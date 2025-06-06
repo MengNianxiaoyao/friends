@@ -17,18 +17,18 @@
     https://cdn.jsdelivr.net/gh/adproqwq/picx-images-hosting@master/avatar.3uusvva7na.jpg
   desc: Adpro的Blog，可能有有用的东西？
   color: '#39C5BB'
+- blog: LyShark- 孤风洗剑
+  name: LyShark
+  url: https://www.lyshark.com/
+  avatar: https://www.lyshark.com/images/baidu_logo.png
+  desc: 道，可道，非常道；名，可名，非常名。—— 老子《道德经》
+  color: '#0078e7'
 - blog: Mycpen
   name: Mycpen
   url: https://blog.cpen.top/
   avatar: https://cdn.cbd.int/mycpen-blog@0.0.0-elalhcands/img/avatar.png
   desc: 这是一个有趣的博客
   color: '#0078e7'
-- blog: 偷闲小站
-  name: Andy Pang
-  url: https://blog.andypang.cc/
-  avatar: https://image.andypang.cc/halo/avatar.webp
-  desc: 跨越山海，终见曙光
-  color: '#455cef'
 - blog: 安知鱼
   name: 安知鱼
   url: https://blog.anheyu.com/

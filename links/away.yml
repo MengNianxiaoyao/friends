@@ -4,4 +4,4 @@
   avatar: https://image.andypang.cc/halo/avatar.webp
   desc: 跨越山海，终见曙光
   color: '#455cef'
-  errormsg: ''
+  errormsg: getaddrinfo ENOTFOUND blog.andypang.cc

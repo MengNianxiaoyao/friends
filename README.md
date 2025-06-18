@@ -31,7 +31,7 @@
 - blog: 梦念逍遥のBLOG
   name: 梦念逍遥
   url: https://blog.mnxy.eu.org
-  avatar: https://cdn.jsdmirror.com/gh/MengNianxiaoyao/friends@gh-pages/favicon.svg
+  avatar: https://cdn.jsdmirror.com/gh/MengNianxiaoyao/blogassets@main/favicon.svg
   desc: 无梦之境
   color: '#0078e7'
 ```

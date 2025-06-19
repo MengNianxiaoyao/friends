@@ -23,15 +23,15 @@
   avatar: https://www.lyshark.com/images/baidu_logo.png
   desc: 道，可道，非常道；名，可名，非常名。—— 老子《道德经》
   color: '#0078e7'
-- blog: 安知鱼
-  name: 安知鱼
-  url: https://blog.anheyu.com/
-  avatar: https://img01.anheyu.com/useruploads/90/2023/04/23/6444e85234e51.jpg
-  desc: 生活明朗，万物可爱
-  color: '#455cef'
 - blog: Mycpen
   name: Mycpen
   url: https://blog.cpen.top/
   avatar: https://cdn.cbd.int/mycpen-blog@0.0.0-elalhcands/img/avatar.png
   desc: 这是一个有趣的博客
   color: '#0078e7'
+- blog: 安知鱼
+  name: 安知鱼
+  url: https://blog.anheyu.com/
+  avatar: https://img01.anheyu.com/useruploads/90/2023/04/23/6444e85234e51.jpg
+  desc: 生活明朗，万物可爱
+  color: '#455cef'

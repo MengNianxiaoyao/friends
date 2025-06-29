@@ -52,3 +52,11 @@
 - 填写完成提交后会自动进行友链添加。
 - 当链接添加完成后，请尽快于您的站点添加本站友链，您的站点将在 10 分钟内显示在 [梦念逍遥の友链](https://blog.mnxy.eu.org/links/) 里。
 - 如需修改链接，请关闭 issue 后创建一个新的 issue。其他信息更新请直接修改 issue 内容。
+
+## 感谢
+
+本项目 CDN 加速及安全防护由 Tencent EdgeOne 赞助
+
+![](https://edgeone.ai/media/34fe3a45-492d-4ea4-ae5d-ea1087ca7b4b.png)
+
+官网链接：[亚洲最佳CDN、边缘和安全解决方案 - Tencent EdgeOne](https://edgeone.ai/zh?from=github)

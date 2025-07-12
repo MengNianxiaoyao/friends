@@ -4,12 +4,6 @@
   avatar: https://www.fomal.cc/assets/head.jpg
   desc: Future is now 🍭🍭🍭
   color: '#0078e7'
-- blog: 呆鱼
-  name: 呆鱼
-  url: https://blog.yep.vin/
-  avatar: https://blog.yep.vin/static/img/avatar.png
-  desc: 命运之所以称为命运，正是因为它无可改变。
-  color: '#455cef'
 - blog: AdproのBlog
   name: Adpro
   url: https://blog.adproqwq.top/
@@ -26,7 +20,7 @@
 - blog: LyShark- 孤风洗剑
   name: LyShark
   url: https://www.lyshark.com/
-  avatar: https://www.lyshark.com/images/baidu_logo.png
+  avatar: https://www.lyshark.com/images/favicon-32x32-next.png
   desc: 道，可道，非常道；名，可名，非常名。—— 老子《道德经》
   color: '#0078e7'
 - blog: Mycpen

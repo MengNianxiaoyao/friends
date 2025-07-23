@@ -1,24 +1,15 @@
+import type { FriendLink } from './utils'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import process from 'node:process'
 import { consola } from 'consola'
 import yaml from 'js-yaml'
 import config from './config'
 
-export interface Friend {
-  blog: string
-  name: string
-  url: string
-  avatar: string
-  desc: string
-  color?: string
-  errormsg?: string
-}
-
 // 统一的文件处理函数
 async function generateJson(type: keyof typeof config.dataFile) {
   const data = yaml.load(
     await readFile(config.dataFile[type], 'utf8'),
-  ) as Friend[]
+  ) as FriendLink[]
 
   await mkdir(config.outPath, { recursive: true })
   await writeFile(

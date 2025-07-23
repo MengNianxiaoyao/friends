@@ -1,63 +1,21 @@
-import { readFile, writeFile } from 'node:fs/promises'
 import process from 'node:process'
 import axios from 'axios'
 import { consola } from 'consola'
 import yaml from 'js-yaml'
 import config from './config'
+import {
+  FriendLink,
+  GithubIssue,
+  GITHUB_API_HEADERS,
+  readYamlFile,
+  writeYamlFile,
+  checkLinkStatus as utilsCheckLinkStatus,
+  updateIssueLabels as utilsUpdateIssueLabels
+} from './utils'
 
-// 定义友链数据结构
-interface FriendLink {
-  blog: string // 博客名称
-  name: string // 博主名称
-  url: string // 博客链接
-  avatar: string // 头像链接
-  desc: string // 博客描述
-  color: string // 主题色
-  errormsg?: string // 可选的错误信息
-}
-
-// 定义 GitHub Issue 数据结构
-interface GithubIssue {
-  number: number // Issue 编号
-  body: string // Issue 内容
-  state: string // Issue 状态（open/closed）
-  labels: Array<{ name: string }> // Issue 标签列表
-}
-
-const TOKEN = process.env.TOKEN
 const ISSUE_NUMBER = process.env.ISSUE_NUMBER
-const GITHUB_API_HEADERS = {
-  'Accept': 'application/vnd.github+json',
-  'Authorization': `Bearer ${TOKEN}`,
-  'X-GitHub-Api-Version': '2022-11-28',
-}
 const linksPath = config.dataFile.links
 const awayPath = config.dataFile.away
-
-axios.defaults.timeout = 30 * 1000
-
-// 读取 YAML 文件
-async function readYamlFile(filePath: string): Promise<FriendLink[]> {
-  try {
-    const data = yaml.load(await readFile(filePath, 'utf8'))
-    return Array.isArray(data) ? data : []
-  }
-  catch (error) {
-    consola.error(`Error reading ${filePath}: ${(error as Error).message}`)
-    return []
-  }
-}
-
-// 写入 YAML 文件
-async function writeYamlFile(filePath: string, data: FriendLink[]): Promise<void> {
-  try {
-    await writeFile(filePath, yaml.dump(data), 'utf8')
-    consola.success(`Data saved to ${filePath}`)
-  }
-  catch (error) {
-    consola.error(`Error writing to ${filePath}: ${(error as Error).message}`)
-  }
-}
 
 // 验证并解析友链数据
 // 从 Issue 内容中提取 YAML 格式的友链数据，并验证数据格式的正确性
@@ -86,44 +44,14 @@ function parseFriendLink(content: string): FriendLink[] {
   }
 }
 
-// 检查链接状态
+// 使用utils.ts中的函数，但保持原有的调用方式
 async function checkLinkStatus(link: FriendLink): Promise<boolean> {
-  try {
-    await axios.get(link.url, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Friends links Check Bot; +https://blog.mnxy.eu.org)' },
-    })
-    consola.success(`${link.url} access OK`)
-    return true
-  }
-  catch (error) {
-    consola.warn(`${link.url} access failed`)
-    link.errormsg = (error as Error).message
-    return false
-  }
+  return utilsCheckLinkStatus(link, false);
 }
 
-// 更新 issue 标签
+// 使用utils.ts中的函数，但保持原有的调用方式
 async function updateIssueLabels(issue: GithubIssue, isAlive: boolean): Promise<void> {
-  try {
-    const labels = issue.labels.map(label => label.name)
-    const newStatus = isAlive ? 'active' : '404'
-
-    if (labels.includes(newStatus))
-      return
-
-    const updatedLabels = [...labels.filter(label => !['active', '404'].includes(label)), newStatus]
-
-    await axios.put(
-      `https://api.github.com/repos/MengNianxiaoyao/friends/issues/${issue.number}/labels`,
-      { labels: updatedLabels },
-      { headers: GITHUB_API_HEADERS },
-    )
-
-    consola.success(`已更新 Issue #${issue.number} 的标签为 ${newStatus}`)
-  }
-  catch (error) {
-    consola.error(`更新标签失败: ${(error as Error).message}`)
-  }
+  return utilsUpdateIssueLabels(issue, isAlive);
 }
 
 // 处理单个 Issue

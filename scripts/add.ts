@@ -1,16 +1,18 @@
+import type {
+  FriendLink,
+  GithubIssue,
+} from './utils'
 import process from 'node:process'
 import axios from 'axios'
 import { consola } from 'consola'
 import yaml from 'js-yaml'
 import config from './config'
 import {
-  FriendLink,
-  GithubIssue,
   GITHUB_API_HEADERS,
   readYamlFile,
-  writeYamlFile,
   checkLinkStatus as utilsCheckLinkStatus,
-  updateIssueLabels as utilsUpdateIssueLabels
+  updateIssueLabels as utilsUpdateIssueLabels,
+  writeYamlFile,
 } from './utils'
 
 const ISSUE_NUMBER = process.env.ISSUE_NUMBER
@@ -46,12 +48,12 @@ function parseFriendLink(content: string): FriendLink[] {
 
 // 使用utils.ts中的函数，但保持原有的调用方式
 async function checkLinkStatus(link: FriendLink): Promise<boolean> {
-  return utilsCheckLinkStatus(link, false);
+  return utilsCheckLinkStatus(link, false)
 }
 
 // 使用utils.ts中的函数，但保持原有的调用方式
 async function updateIssueLabels(issue: GithubIssue, isAlive: boolean): Promise<void> {
-  return utilsUpdateIssueLabels(issue, isAlive);
+  return utilsUpdateIssueLabels(issue, isAlive)
 }
 
 // 处理单个 Issue

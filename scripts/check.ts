@@ -1,18 +1,20 @@
+import type {
+  FriendLink,
+  GithubIssue,
+} from './utils'
 import axios from 'axios'
 import { consola } from 'consola'
 import config from './config'
 import {
-  FriendLink,
-  GithubIssue,
   GITHUB_API_HEADERS,
   readYamlFile,
+  checkLinkStatus as utilsCheckLinkStatus,
   writeYamlFile,
-  checkLinkStatus as utilsCheckLinkStatus
 } from './utils'
 
 // 检查链接状态（使用utils.ts中的函数，但保持原有的调用方式）
 async function checkLinkStatus(link: FriendLink, issues: GithubIssue[]): Promise<boolean> {
-  return utilsCheckLinkStatus(link, true, issues);
+  return utilsCheckLinkStatus(link, true, issues)
 }
 
 // 并发控制器

@@ -8,14 +8,9 @@ import config from './config'
 import {
   GITHUB_API_HEADERS,
   readYamlFile,
-  checkLinkStatus as utilsCheckLinkStatus,
+  checkLinkStatus,
   writeYamlFile,
 } from './utils'
-
-// 检查链接状态（使用utils.ts中的函数，但保持原有的调用方式）
-async function checkLinkStatus(link: FriendLink, issues: GithubIssue[]): Promise<boolean> {
-  return utilsCheckLinkStatus(link, true, issues)
-}
 
 // 并发控制器
 // 用于限制同时进行的友链检查数量，避免请求过于频繁
@@ -64,7 +59,7 @@ async function main(): Promise<void> {
 
     consola.start('Checking the status of all links')
 
-    const { data: issues } = await axios.get(
+    const { data: issues } = await axios.get<GithubIssue[]>(
       'https://api.github.com/repos/MengNianxiaoyao/friends/issues',
       { headers: GITHUB_API_HEADERS },
     )
@@ -76,7 +71,7 @@ async function main(): Promise<void> {
     await Promise.all(
       allLinks.map(link =>
         controller.add(async () => {
-          const isAlive = await checkLinkStatus(link, issues)
+          const isAlive = await checkLinkStatus(link, true, issues)
           if (isAlive) {
             delete link.errormsg
             results.alive.push(link)

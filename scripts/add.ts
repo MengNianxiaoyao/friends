@@ -10,8 +10,8 @@ import config from './config'
 import {
   GITHUB_API_HEADERS,
   readYamlFile,
-  checkLinkStatus as utilsCheckLinkStatus,
-  updateIssueLabels as utilsUpdateIssueLabels,
+  checkLinkStatus,
+  updateIssueLabels,
   writeYamlFile,
 } from './utils'
 
@@ -44,16 +44,6 @@ function parseFriendLink(content: string): FriendLink[] {
   catch {
     return []
   }
-}
-
-// 使用utils.ts中的函数，但保持原有的调用方式
-async function checkLinkStatus(link: FriendLink): Promise<boolean> {
-  return utilsCheckLinkStatus(link, false)
-}
-
-// 使用utils.ts中的函数，但保持原有的调用方式
-async function updateIssueLabels(issue: GithubIssue, isAlive: boolean): Promise<void> {
-  return utilsUpdateIssueLabels(issue, isAlive)
 }
 
 // 处理单个 Issue
@@ -93,7 +83,7 @@ async function processIssue(issue: GithubIssue): Promise<{ aliveLinks: FriendLin
 
   // 检查友链可访问性并更新状态
   const [link] = parsedLinks
-  const isAlive = await checkLinkStatus(link)
+  const isAlive = await checkLinkStatus(link, false)
   if (isAlive)
     delete link.errormsg
 

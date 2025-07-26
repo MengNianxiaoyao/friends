@@ -6,9 +6,9 @@ import axios from 'axios'
 import { consola } from 'consola'
 import config from './config'
 import {
+  checkLinkStatus,
   GITHUB_API_HEADERS,
   readYamlFile,
-  checkLinkStatus,
   writeYamlFile,
 } from './utils'
 

@@ -8,9 +8,9 @@ import { consola } from 'consola'
 import yaml from 'js-yaml'
 import config from './config'
 import {
+  checkLinkStatus,
   GITHUB_API_HEADERS,
   readYamlFile,
-  checkLinkStatus,
   updateIssueLabels,
   writeYamlFile,
 } from './utils'

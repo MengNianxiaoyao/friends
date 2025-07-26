@@ -44,3 +44,10 @@ body:
       placeholder: "如: https://yoursite.com/friends/"
     validations:
       required: true
+  - type: checkboxes
+    id: check-control
+    attributes:
+      label: 重新检测友链状态
+      options:
+        - label: <!-- checklink -->如需重新检测友链状态请勾选此框。
+          required: false

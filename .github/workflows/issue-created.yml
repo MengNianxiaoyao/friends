@@ -7,6 +7,11 @@ on:
       - closed
       - edited
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
@@ -37,6 +42,24 @@ jobs:
           TOKEN: ${{ secrets.TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: pnpm run add
+
+      - name: Check Checkbox Status
+        id: checkboxes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body;
+            const status = body.includes('[x] <!-- checklink -->');
+            if (status) {
+              const updatedBody = body.replace('[x] <!-- checklink -->', '[ ] <!-- checklink -->');
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: updatedBody
+              });
+            };
 
       - name: Commit changes
         id: push

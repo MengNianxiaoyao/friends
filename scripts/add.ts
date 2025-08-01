@@ -39,7 +39,7 @@ function parseFriendLink(content: string): FriendLink[] {
         // color 属性可以为空或字符串，其他属性必须为字符串
         key === 'color' ? !link[key] || typeof link[key] === 'string' : typeof link[key] === 'string',
       )
-    )).map(link => ({ ...link, color: link.color || '#455cef' })) // 设置默认主题色
+    )).map(link => ({ ...link, color: link.color || '#0078e7' })) // 设置默认主题色
   }
   catch {
     return []

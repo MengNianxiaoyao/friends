@@ -1,7 +1,7 @@
-# [梦念逍遥の友链](https://friends.mnxy.eu.org)
+# [梦念逍遥の友链](https://friends.mnxyio.top)
 
-[![links.json](https://img.shields.io/badge/links.json-yellow)](https://friends.mnxy.eu.org/links.json)
-![](https://friends.mnxy.eu.org/timestamp.svg)
+[![links.json](https://img.shields.io/badge/links.json-yellow)](https://friends.mnxyio.top/links.json)
+![](https://friends.mnxyio.top/timestamp.svg)
 
 ## 友链说明
 
@@ -30,7 +30,7 @@
 ```yaml
 - blog: 梦念逍遥のBLOG
   name: 梦念逍遥
-  url: https://blog.mnxy.eu.org
+  url: https://blog.mnxyio.top
   avatar: https://cdn.jsdmirror.com/gh/MengNianxiaoyao/blogassets@main/favicon.svg
   desc: 无梦之境
   color: '#0078e7'
@@ -50,7 +50,7 @@
 - 在 GitHub 上新建 [issue](https://github.com/MengNianxiaoyao/friends/issues/new?template=custom.yaml)。
 - 按照模板格式完成填写。
 - 填写完成提交后会自动进行友链添加。
-- 当链接添加完成后，请尽快于您的站点添加本站友链，您的站点将在 10 分钟内显示在 [梦念逍遥の友链](https://blog.mnxy.eu.org/links/) 里。
+- 当链接添加完成后，请尽快于您的站点添加本站友链，您的站点将在 10 分钟内显示在 [梦念逍遥の友链](https://blog.mnxyio.top/links/) 里。
 - 如需修改链接，请关闭当前 issue 后创建一个新的 issue。其他信息更新请直接修改 issue 内容。
 
 ## 感谢

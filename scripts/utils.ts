@@ -65,7 +65,7 @@ export async function checkLinkStatus(
 ): Promise<boolean> {
   try {
     await axios.get(link.url, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Friends links Check Bot; +https://blog.mnxy.eu.org)' },
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Friends links Check Bot; +https://blog.mnxyio.top)' },
     })
     consola.success(`${link.url} access OK`)
 

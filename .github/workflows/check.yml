@@ -58,12 +58,22 @@ jobs:
         if: steps.push.outputs.pushed == 'true'
         run: pnpm run build
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./dist
+          destination: ./site
+
+      - run: sudo cp ./public/CNAME ./site/
+
       - name: Deploy
-        if: steps.push.outputs.pushed == 'true'
         uses: peaceiris/actions-gh-pages@v4.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./site
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           force_orphan: true

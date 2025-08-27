@@ -1,6 +1,6 @@
 # [梦念逍遥の友链](https://friends.mnxyio.top)
 
-[![links.json](https://logo.mnxyio.top/badge/links.json-yellow)](https://friends.mnxyio.top/links.json)
+[![links.json](https://logo.mnxy.eu.org/badge/links.json-yellow)](https://friends.mnxyio.top/links.json)
 ![](https://friends.mnxyio.top/timestamp.svg)
 
 ## 友链说明

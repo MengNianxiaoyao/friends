@@ -1,22 +1,9 @@
-- blog: Fomalhaut🥝🥝
-  name: Fomalhaut
-  url: https://www.fomal.cc/
-  avatar: https://www.fomal.cc/assets/head.jpg
-  desc: Future is now 🍭🍭🍭
-  color: '#0078e7'
 - blog: 安知鱼
   name: 安知鱼
   url: https://blog.anheyu.com/
   avatar: https://img01.anheyu.com/useruploads/90/2023/04/23/6444e85234e51.jpg
   desc: 生活明朗，万物可爱
   color: '#455cef'
-- blog: AdproのBlog
-  name: Adpro
-  url: https://blog.adproqwq.top/
-  avatar: >-
-    https://cdn.jsdmirror.com/gh/adproqwq/picx-images-hosting@master/avatar.3uusvva7na.jpg
-  desc: Adpro的Blog，可能有有用的东西？
-  color: '#39C5BB'
 - blog: LyShark- 孤风洗剑
   name: LyShark
   url: https://www.lyshark.com/

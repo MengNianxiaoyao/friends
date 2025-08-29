@@ -12,11 +12,3 @@
   desc: Future is now 🍭🍭🍭
   color: '#0078e7'
   errormsg: timeout of 30000ms exceeded
-- blog: AdproのBlog
-  name: Adpro
-  url: https://blog.adproqwq.top/
-  avatar: >-
-    https://cdn.jsdmirror.com/gh/adproqwq/picx-images-hosting@master/avatar.3uusvva7na.jpg
-  desc: Adpro的Blog，可能有有用的东西？
-  color: '#39C5BB'
-  errormsg: timeout of 30000ms exceeded

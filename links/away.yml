@@ -5,10 +5,3 @@
   desc: 跨越山海，终见曙光
   color: '#455cef'
   errormsg: getaddrinfo ENOTFOUND blog.andypang.cc
-- blog: Fomalhaut🥝🥝
-  name: Fomalhaut
-  url: https://www.fomal.cc/
-  avatar: https://www.fomal.cc/assets/head.jpg
-  desc: Future is now 🍭🍭🍭
-  color: '#0078e7'
-  errormsg: timeout of 30000ms exceeded

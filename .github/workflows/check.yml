@@ -13,16 +13,19 @@ jobs:
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-
     steps:
-      - uses: actions/checkout@v4.1.7
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
         with:
           fetch-depth: 1
 
-      - uses: pnpm/action-setup@v4.0.0
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v4.0.0
         with:
           version: latest
-      - uses: actions/setup-node@v4.4.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4.4.0
         with:
           node-version: '22.14.0'
           cache: pnpm
@@ -46,7 +49,6 @@ jobs:
         run: pnpm run check
 
       - name: Commit changes
-        id: push
         uses: EndBug/add-and-commit@main
         with:
           author_name: github-actions[bot]
@@ -54,12 +56,11 @@ jobs:
           message: 'chore: check links'
           add: '.'
 
-      - name: Build
-        if: steps.push.outputs.pushed == 'true'
-        run: pnpm run build
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      - name: Build Links
+        run: pnpm run build
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
@@ -67,7 +68,8 @@ jobs:
           source: ./dist
           destination: ./site
 
-      - run: sudo cp ./public/CNAME ./site/
+      - name: Copy CNAME
+        run: sudo cp ./public/CNAME ./site/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4.0.0

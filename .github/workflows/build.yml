@@ -20,13 +20,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4.1.7
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
         with:
           fetch-depth: 1
-      - uses: pnpm/action-setup@v4.0.0
+
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v4.0.0
         with:
           version: latest
-      - uses: actions/setup-node@v4.4.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4.4.0
         with:
           node-version: '22.14.0'
           cache: pnpm
@@ -49,13 +54,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4.1.7
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
         with:
           fetch-depth: 1
-      - uses: pnpm/action-setup@v4.0.0
+
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v4.0.0
         with:
           version: latest
-      - uses: actions/setup-node@v4.4.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4.4.0
         with:
           node-version: '22.14.0'
           cache: pnpm
@@ -73,25 +83,30 @@ jobs:
     # 只在主分支推送时部署
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4.1.7
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
         with:
           fetch-depth: 1
-      - uses: pnpm/action-setup@v4.0.0
+
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v4.0.0
         with:
           version: latest
-      - uses: actions/setup-node@v4.4.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4.4.0
         with:
           node-version: '22.14.0'
           cache: pnpm
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      
-      - name: Build
-        run: pnpm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      
+      - name: Build Links
+        run: pnpm run build
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
@@ -99,7 +114,8 @@ jobs:
           source: ./dist
           destination: ./site
       
-      - run: sudo cp ./public/CNAME ./site/
+      - name: Copy CNAME
+        run: sudo cp ./public/CNAME ./site/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4.0.0

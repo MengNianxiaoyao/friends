@@ -5,3 +5,10 @@
   desc: 跨越山海，终见曙光
   color: '#455cef'
   errormsg: getaddrinfo ENOTFOUND blog.andypang.cc
+- blog: 🌹Dominic的二手博客🌹
+  name: 🌹Dominic🌹
+  url: https://blog.dominickk.top/
+  avatar: https://blog.dominickk.top/upload/avatar.png
+  desc: 写文档使我快乐🍺
+  color: '#c78fff'
+  errormsg: ''

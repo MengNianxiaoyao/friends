@@ -11,4 +11,11 @@
   avatar: https://blog.dominickk.top/upload/avatar.png
   desc: 写文档使我快乐🍺
   color: '#c78fff'
-  errormsg: Request failed with status code 502
+  errormsg: Request failed with status code 504
+- blog: Mycpen
+  name: Mycpen
+  url: https://blog.cpen.top/
+  avatar: https://cdn.cbd.int/mycpen-blog@0.0.0-elalhcands/img/avatar.png
+  desc: 这是一个有趣的博客
+  color: '#0078e7'
+  errormsg: timeout of 30000ms exceeded

@@ -5,3 +5,10 @@
   desc: 跨越山海，终见曙光
   color: '#455cef'
   errormsg: getaddrinfo ENOTFOUND blog.andypang.cc
+- blog: Mycpen
+  name: Mycpen
+  url: https://blog.cpen.top/
+  avatar: https://cdn.cbd.int/mycpen-blog@0.0.0-elalhcands/img/avatar.png
+  desc: 这是一个有趣的博客
+  color: '#0078e7'
+  errormsg: timeout of 30000ms exceeded
